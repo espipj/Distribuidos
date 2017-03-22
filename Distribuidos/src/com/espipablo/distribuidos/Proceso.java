@@ -42,7 +42,7 @@ public class Proceso extends Thread {
 		this.total = total;
 		this.procesos = procesos;
 		this.respuesta = new Semaphore(0);
-		this.cola = new LinkedList();
+		this.cola = new LinkedList<Integer>();
 		
 		String ruta = this.pi + ".log";
 		this.fichero = fichero;
@@ -50,6 +50,7 @@ public class Proceso extends Thread {
 	
 	public void run() {
 		for (int i=0; i < 100; i++) {
+			System.out.println(i);
 			try {
 				Thread.sleep((long) (((MAXPROC - MINPROC) * Math.random() + MINPROC) * 1000));
 			} catch (InterruptedException e) {
