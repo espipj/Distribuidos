@@ -108,6 +108,7 @@ public class Despachador implements ControladorRegistro {
             //Util.request("http://"+ip3+":8080/Distribuidos/despachador/EjecutarNTP");
             
     		try {
+    			System.out.println(10*((TOTALPROC/2)-1));
     			semReadyStart.acquire(10*((TOTALPROC/2)-1));
     		} catch (InterruptedException e1) {
     			// TODO Auto-generated catch block
@@ -155,6 +156,7 @@ public class Despachador implements ControladorRegistro {
 		Random rn = new Random();
 		t2=System.currentTimeMillis();
 		r=String.valueOf(t1)+DEL+String.valueOf(t2);
+		System.out.println("Recibo NTP");
 		this.semReadyStart.release();
 		return r;
 	}
