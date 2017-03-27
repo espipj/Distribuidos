@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
+import java.util.zip.CRC32;
 
 import org.json.JSONArray;
 
@@ -35,8 +36,9 @@ public class Proceso extends Thread {
 	protected static final double MINSC = 0.1f;
 	protected static final double MAXPROC = 0.5f;
 	protected static final double MINPROC = 0.3f;
+	protected ControladorRegistro controlador;
 	
-	Proceso(int id, int total, Fichero fichero, JSONArray procesos) {
+	Proceso(int id, int total, Fichero fichero, JSONArray procesos, ControladorRegistro cr) {
 		this.pi = id;
 		this.ti = ti;
 		this.ci = 0;
@@ -45,12 +47,14 @@ public class Proceso extends Thread {
 		this.procesos = procesos;
 		this.respuesta = new Semaphore(0);
 		this.cola = new LinkedList<Integer>();
+		this.controlador=cr;
 		
 		String ruta = this.pi + ".log";
 		this.fichero = fichero;
 	}
 	
 	public void run() {
+		long o1,d1;
 		for (int i=0; i < 100; i++) {
 			try {
 				Thread.sleep((long) (((MAXPROC - MINPROC) * Math.random() + MINPROC) * 1000));
@@ -60,6 +64,9 @@ public class Proceso extends Thread {
 			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			entrarEnSC();
 		}
+		o1=NTP.offset;
+		d1=NTP.delay;
+		NTP.ntp(procesos.getString(0));
 	}
 	
 	/*
@@ -100,6 +107,7 @@ public class Proceso extends Thread {
 		
 		//this.entrarEnSC();
 		System.err.println("SOY " + this.pi);
+		controlador.anadirRegistro("P"+this.pi+" E", System.currentTimeMillis());
 		try {
 			Thread.sleep((long) (((MAXSC - MINSC) * Math.random() + MINSC) * 1000));
 		} catch (InterruptedException e) {
@@ -111,6 +119,7 @@ public class Proceso extends Thread {
 	
 	public void salirSC() {
 		this.estado = Proceso.LIB;
+		controlador.anadirRegistro("P"+this.pi+" S", System.currentTimeMillis());
 		
 		for (int p: cola) {
 			responderPeticion(p);
@@ -215,4 +224,8 @@ public class Proceso extends Thread {
 
     }
 	
+	public void corregirTiempos(long o1,long d1){
+		
+		
+	}
 }
