@@ -89,7 +89,7 @@ public class Proceso extends Thread {
 	public void recibirPeticion(int tj, int pj) {
 		System.out.println("Recibiendo peticion en " + this.pi + " de " + pj);
 		
-		synchronized(this) {
+		synchronized(this.ciBlock) {
 			ci = max(ci, tj) + 1;
 		}
 		
@@ -112,43 +112,6 @@ public class Proceso extends Thread {
 		this.respuesta.release();
 	}
 	
-	public void accederSC() {
-		try {
-			this.respuesta.acquire(this.total - 1);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-		// Entrar en SC
-		this.estado = Proceso.TOM;
-		
-		synchronized(this.ciBlock) {
-			this.ci++;
-		}
-			
-		//this.entrarEnSC();
-		System.err.println("SOY " + this.pi);
-		controlador.anadirRegistro("P"+this.pi+" E", System.currentTimeMillis());
-		try {
-			Thread.sleep((long) (((MAXSC - MINSC) * Math.random() + MINSC) * 1000));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		this.salirSC();
-		// Escribir en fichero
-	}
-	
-	public void salirSC() {
-		controlador.anadirRegistro("P"+this.pi+" S", System.currentTimeMillis());
-		this.estado = Proceso.LIB;
-		
-		synchronized(this.colaBlock) {
-			for (int p: cola) {
-				responderPeticion(p);
-			}
-			cola.clear();
-		}
-	}
-	
 	/*
 	 	estado = BUSCADA;
 		Ti = Ci
@@ -157,7 +120,9 @@ public class Proceso extends Thread {
 		estado = TOMADA;
 		Ci = Ci + 1 // LC1
 	 */
-	public void entrarEnSC() {		
+	public void entrarEnSC() {
+		// Cojo estado buscando pero no cojo ti. En la línea 99 daría true
+		// si mi t es menor que la suya y luego yo cogería una t mayor que la suya, por tanto el tampoco me respondería
 		synchronized(this.statusBlock) {
 			this.estado = Proceso.BUS;
 			this.ti = this.ci;
@@ -175,6 +140,43 @@ public class Proceso extends Thread {
 		}
 		
 		accederSC();
+	}
+	
+	public void accederSC() {
+		try {
+			this.respuesta.acquire(this.total - 1);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		// Entrar en SC
+
+		this.estado = Proceso.TOM;
+		synchronized(this.ciBlock) {
+			this.ci++;
+		}
+			
+		//this.entrarEnSC();
+		System.err.println("SOY " + this.pi);
+		controlador.anadirRegistro("P" + this.pi + " E", System.currentTimeMillis());
+		try {
+			Thread.sleep((long) (((MAXSC - MINSC) * Math.random() + MINSC) * 1000));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		this.salirSC();
+		// Escribir en fichero
+	}
+	
+	public void salirSC() {
+		controlador.anadirRegistro("P" + this.pi + " S", System.currentTimeMillis());
+		this.estado = Proceso.LIB;
+		
+		synchronized(this.colaBlock) {
+			for (int p: cola) {
+				responderPeticion(p);
+			}
+			cola.clear();
+		}
 	}
 	
 	protected void responderPeticion(int p) {
