@@ -91,7 +91,6 @@ public class Despachador implements ControladorRegistro {
     		//procesos.put(ip3);
     		//procesos.put(ip3);
 
-    		//Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=" + 2 + "&json=" + procesos.toString());
     		
             p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
             p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
@@ -99,8 +98,11 @@ public class Despachador implements ControladorRegistro {
             // Listo para recibir peticiones
 
     		try {
+    			// Sacar esto a un hilo
 				Util.request("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=" + 1 + "&json=" + 
 						URLEncoder.encode(procesos.toString(), "UTF-8"));
+	    		/*Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=" + 2 + 
+						URLEncoder.encode(procesos.toString(), "UTF-8"));*/
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -131,6 +133,7 @@ public class Despachador implements ControladorRegistro {
         p1.start();
         p2.start();
         
+        // Meter esto en fichero y que extienda de Thread
         try {
 			semFinalRegistro.acquire(400);
 			Collections.sort(registros);
