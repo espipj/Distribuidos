@@ -130,8 +130,8 @@ public class Proceso extends Thread {
 		this.estado = Proceso.BUS;
 		System.out.println("Buscando en " + this.pi);
 		this.ti = this.ci;
-		for (int i=1; i < procesos.length(); i++) {
-			// No me mando peticiones a m� mismo
+		for (int i=1; i < procesos.length()+1; i++) {
+			// No me mando peticiones a mi mismo
 			if (i == this.pi) {
 				continue;
 			}
