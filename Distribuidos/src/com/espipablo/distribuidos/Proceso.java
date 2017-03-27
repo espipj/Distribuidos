@@ -63,11 +63,11 @@ public class Proceso extends Thread {
 	}
 	
 	/*
-	 	Al recibir una petici�n <Tj, pj> en pi
+	 	Al recibir una petición <Tj, pj> en pi
 		Ci = max(Ci, Tj) + 1 // LC2
 		si ( estado = TOMADA o
 		(estado = BUSCADA y (Ti, pi) < (Tj, pj)*) )
-		pon en cola la petici�n, por parte de pj
+		pon en cola la petición, por parte de pj
 		si no
 		responde inmediatamente a pj 
 	 */
@@ -121,8 +121,8 @@ public class Proceso extends Thread {
 	/*
 	 	estado = BUSCADA;
 		Ti = Ci
-		Multidifusi�n de la petici�n <Ti, pi> de entrada en SC
-		Espera hasta que (n� de respuestas = (N-1));
+		Multidifusión de la petición <Ti, pi> de entrada en SC
+		Espera hasta que (nº de respuestas = (N-1));
 		estado = TOMADA;
 		Ci = Ci + 1 // LC1
 	 */
