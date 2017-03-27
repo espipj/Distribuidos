@@ -23,15 +23,14 @@ import java.util.concurrent.Semaphore;
 
 @Path("/despachador")
 @Singleton
-public class Despachador implements ControladorRegistro {
+public class Despachador {
 
 	protected Proceso p1;
 	protected Proceso p2;
 	protected static final int TOTALPROC = 4;
 	protected int maquina;    
 	public static final String DEL= ":";
-	protected Semaphore semReadyNTP, semReadyStart,semFinalRegistro;
-	protected ArrayList<Registro> registros;
+	protected Semaphore semReadyNTP, semReadyStart;
 	
 
     @GET
@@ -65,10 +64,8 @@ public class Despachador implements ControladorRegistro {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/inicializar")
     public String inicializar(@QueryParam(value="id") int maquina, @QueryParam(value="json") String json, @QueryParam(value="ip2") String ip2, @QueryParam(value="ip3") String ip3) {
-    	registros=new ArrayList<Registro>();
 		semReadyStart=new Semaphore(0);
 		
-    	semFinalRegistro=new Semaphore(0);
     	System.out.println("Inicializando la máquina " + maquina);
     	
     	this.maquina = maquina;
@@ -92,8 +89,8 @@ public class Despachador implements ControladorRegistro {
     		//procesos.put(ip3);
 
     		
-            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
-            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
+            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos, fichero);
+            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos, fichero);
             
             // Listo para recibir peticiones
 
@@ -120,8 +117,8 @@ public class Despachador implements ControladorRegistro {
     	} else {
     		procesos = new JSONArray(json);
     		
-            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
-            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
+            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos, fichero);
+            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos, fichero);
 
             // Listo para empezare
             
@@ -132,18 +129,6 @@ public class Despachador implements ControladorRegistro {
         
         p1.start();
         p2.start();
-        
-        // Meter esto en fichero y que extienda de Thread
-        try {
-			semFinalRegistro.acquire(400);
-			Collections.sort(registros);
-			for (Registro registro : registros) {
-				System.out.println(registro.registro + registro.tiempo);
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         
         return "";   
     }
@@ -168,20 +153,6 @@ public class Despachador implements ControladorRegistro {
 		NTP.ntp(s);
 		
 		return "";
-		
-	}
-
-	@Override
-	public void anadirRegistro(String s, long l) {
-		semFinalRegistro.release();
-		Registro r = new Registro();
-		r.registro=s;
-		r.tiempo=l;
-		// TODO Auto-generated method stub
-		synchronized (this) {
-			registros.add(r);
-			
-		}
 		
 	}
 
