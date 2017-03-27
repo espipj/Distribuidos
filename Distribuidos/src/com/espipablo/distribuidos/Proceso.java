@@ -38,6 +38,10 @@ public class Proceso extends Thread {
 	protected static final double MINPROC = 0.3f;
 	protected ControladorRegistro controlador;
 	
+	protected Object colaBlock;
+	protected Object statusBlock;
+	protected Object ciBlock;
+	
 	Proceso(int id, int total, Fichero fichero, JSONArray procesos, ControladorRegistro cr) {
 		this.pi = id;
 		this.ti = ti;
@@ -47,7 +51,11 @@ public class Proceso extends Thread {
 		this.procesos = procesos;
 		this.respuesta = new Semaphore(0);
 		this.cola = new LinkedList<Integer>();
-		this.controlador=cr;
+		this.controlador = cr;
+		
+		colaBlock = new Object();
+		statusBlock = new Object();
+		ciBlock = new Object();
 		
 		String ruta = this.pi + ".log";
 		this.fichero = fichero;
@@ -80,11 +88,20 @@ public class Proceso extends Thread {
 	 */
 	public void recibirPeticion(int tj, int pj) {
 		System.out.println("Recibiendo peticion en " + this.pi + " de " + pj);
-		ci = max(ci, tj) + 1;
-		if (estado.equals(Proceso.TOM) || (estado.equals(Proceso.BUS) && compareT(tj, pj))) {
-			// Poner en cola
-			cola.add(pj);
-			return;
+		
+		synchronized(this) {
+			ci = max(ci, tj) + 1;
+		}
+		
+		
+		synchronized(this.colaBlock) {
+			synchronized(this.statusBlock) {
+				if (estado.equals(Proceso.TOM) || (estado.equals(Proceso.BUS) && compareT(tj, pj))) {
+					// Poner en cola
+					cola.add(pj);
+					return;
+				}
+			}
 		}
 		
 		responderPeticion(pj);
@@ -103,8 +120,11 @@ public class Proceso extends Thread {
 		}
 		// Entrar en SC
 		this.estado = Proceso.TOM;
-		this.ci++;
 		
+		synchronized(this.ciBlock) {
+			this.ci++;
+		}
+			
 		//this.entrarEnSC();
 		System.err.println("SOY " + this.pi);
 		controlador.anadirRegistro("P"+this.pi+" E", System.currentTimeMillis());
@@ -118,13 +138,15 @@ public class Proceso extends Thread {
 	}
 	
 	public void salirSC() {
-		this.estado = Proceso.LIB;
 		controlador.anadirRegistro("P"+this.pi+" S", System.currentTimeMillis());
+		this.estado = Proceso.LIB;
 		
-		for (int p: cola) {
-			responderPeticion(p);
+		synchronized(this.colaBlock) {
+			for (int p: cola) {
+				responderPeticion(p);
+			}
+			cola.clear();
 		}
-		cola.clear();
 	}
 	
 	/*
@@ -135,10 +157,14 @@ public class Proceso extends Thread {
 		estado = TOMADA;
 		Ci = Ci + 1 // LC1
 	 */
-	public void entrarEnSC() {
-		this.estado = Proceso.BUS;
+	public void entrarEnSC() {		
+		synchronized(this.statusBlock) {
+			this.estado = Proceso.BUS;
+			this.ti = this.ci;
+		}
+		
 		System.out.println("Buscando en " + this.pi);
-		this.ti = this.ci;
+		
 		for (int i=1; i < procesos.length()+1; i++) {
 			// No me mando peticiones a mi mismo
 			if (i == this.pi) {
