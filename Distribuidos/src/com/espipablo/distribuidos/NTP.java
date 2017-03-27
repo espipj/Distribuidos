@@ -12,26 +12,24 @@ public class NTP {
 	public static long offset,delay;
 
 	public static void ntp(String s) {
-		// TODO Auto-generated method stub
-		maquinas = new ArrayList<WebTarget>();
 		long d=Long.MAX_VALUE,o=0;
-			for (int i = 0; i < REP; i++) {
-				String aux;
-				long t0, t1, t2, t3;
-				long auxO, auxD;
-				t0 = System.currentTimeMillis();
-				aux = Util.request("http://"+s+":8080/Despachador/NTP");
-				t3 = System.currentTimeMillis();
-				String[] a = aux.split(Despachador.DEL);
-				t1 = Long.valueOf(a[0]);
-				t2 = Long.valueOf(a[1]);
-				auxO=determinarO(t0,t1,t2,t3);
-				auxD=determinarD(t0,t1,t2,t3);
-				System.out.println("temp Offset: "+auxO+" temp Delay: "+auxD);
-				if(auxD<d){
-					d=auxD;
-					o=auxO;
-				}
+		for (int i = 0; i < REP; i++) {
+		String aux;
+		long t0, t1, t2, t3;
+		long auxO, auxD;
+		t0 = System.currentTimeMillis();
+		aux = Util.request("http://"+s+":8080/Distribuidos/despachador/NTP");
+		t3 = System.currentTimeMillis();
+		String[] a = aux.split(Despachador.DEL);
+		t1 = Long.valueOf(a[0]);
+		t2 = Long.valueOf(a[1]);
+		auxO=determinarO(t0,t1,t2,t3);
+		auxD=determinarD(t0,t1,t2,t3);
+		System.out.println("temp Offset: "+auxO+" temp Delay: "+auxD);
+		if(auxD<d){
+			d=auxD;
+			o=auxO;
+		}
 
 			}
 			System.out.println("Offset: "+String.valueOf(o)+" Delay: "+String.valueOf(d));

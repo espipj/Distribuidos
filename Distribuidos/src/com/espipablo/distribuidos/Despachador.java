@@ -66,6 +66,8 @@ public class Despachador implements ControladorRegistro {
     @Path("/inicializar")
     public String inicializar(@QueryParam(value="id") int maquina, @QueryParam(value="json") String json, @QueryParam(value="ip2") String ip2, @QueryParam(value="ip3") String ip3) {
     	registros=new ArrayList<Registro>();
+		semNTP=new Semaphore(0);
+		
     	semFinalRegistro=new Semaphore(0);
     	System.out.println("Inicializando la máquina " + maquina);
     	
@@ -97,8 +99,13 @@ public class Despachador implements ControladorRegistro {
 			}
     		//Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=" + 2 + "&json=" + procesos.toString());
     		
+            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
+            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
+
+            Util.request("http://"+ip2+":8080/Distribuidos/despachador/EjecutarNTP");
+            //Util.request("http://"+ip3+":8080/Distribuidos/despachador/EjecutarNTP");
+            
     		try {
-    			semNTP=new Semaphore(0);
     			semNTP.acquire(10*((TOTALPROC/2)-1));
     		} catch (InterruptedException e1) {
     			// TODO Auto-generated catch block
@@ -107,15 +114,21 @@ public class Despachador implements ControladorRegistro {
     		
     	} else {
     		procesos = new JSONArray(json);
+    		
+            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
+            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
+            
+            try {
+				semNTP.acquire(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     		System.out.println("Ejecutando NTP.");
         	this.ejecutarNTP((String) procesos.get(0));
         	
         	
-        	
     	}
-    	
-        p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
-        p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
         
         p1.start();
         p2.start();
@@ -151,6 +164,13 @@ public class Despachador implements ControladorRegistro {
 	@Path("EjecutarNTP")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
+	public String ejecutarNTP(){
+		this.semNTP.release();
+		
+		return "";
+		
+	}
+	
 	public String ejecutarNTP(String s){
 		NTP.ntp(s);
 		
