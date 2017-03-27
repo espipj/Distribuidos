@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
 
+import org.json.JSONArray;
+
 public class Proceso extends Thread {
 	
 	protected int pi;
@@ -24,7 +26,7 @@ public class Proceso extends Thread {
 	protected Semaphore respuesta;
 	protected String estado;
 	protected Fichero fichero;
-	protected String[] procesos;
+	protected JSONArray procesos;
 	protected Queue<Integer> cola;
 	protected static final String LIB = "LIBERADA";
 	protected static final String TOM = "TOMADA";
@@ -34,7 +36,7 @@ public class Proceso extends Thread {
 	protected static final double MAXPROC = 0.5f;
 	protected static final double MINPROC = 0.3f;
 	
-	Proceso(int id, int total, Fichero fichero, String[] procesos) {
+	Proceso(int id, int total, Fichero fichero, JSONArray procesos) {
 		this.pi = id;
 		this.ti = ti;
 		this.ci = 0;
@@ -50,26 +52,27 @@ public class Proceso extends Thread {
 	
 	public void run() {
 		for (int i=0; i < 100; i++) {
-			System.out.println(i);
 			try {
 				Thread.sleep((long) (((MAXPROC - MINPROC) * Math.random() + MINPROC) * 1000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			entrarEnSC();
 		}
 	}
 	
 	/*
-	 	Al recibir una petición <Tj, pj> en pi
+	 	Al recibir una peticiï¿½n <Tj, pj> en pi
 		Ci = max(Ci, Tj) + 1 // LC2
 		si ( estado = TOMADA o
 		(estado = BUSCADA y (Ti, pi) < (Tj, pj)*) )
-		pon en cola la petición, por parte de pj
+		pon en cola la peticiï¿½n, por parte de pj
 		si no
 		responde inmediatamente a pj 
 	 */
 	public void recibirPeticion(int tj, int pj) {
+		System.out.println("Recibiendo peticion en " + this.pi + " de " + pj);
 		ci = max(ci, tj) + 1;
 		if (estado.equals(Proceso.TOM) || (estado.equals(Proceso.BUS) && compareT(tj, pj))) {
 			// Poner en cola
@@ -81,12 +84,13 @@ public class Proceso extends Thread {
 	}
 	
 	public void recibirRespuesta() {
+		System.out.println("Respuesta recibida en: " + this.pi);
 		this.respuesta.release();
 	}
 	
 	public void accederSC() {
 		try {
-			this.respuesta.acquire(2);
+			this.respuesta.acquire(this.total - 1);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
@@ -94,7 +98,8 @@ public class Proceso extends Thread {
 		this.estado = Proceso.TOM;
 		this.ci++;
 		
-		this.entrarEnSC();
+		//this.entrarEnSC();
+		System.err.println("SOY " + this.pi);
 		try {
 			Thread.sleep((long) (((MAXSC - MINSC) * Math.random() + MINSC) * 1000));
 		} catch (InterruptedException e) {
@@ -106,36 +111,40 @@ public class Proceso extends Thread {
 	
 	public void salirSC() {
 		this.estado = Proceso.LIB;
+		
 		for (int p: cola) {
 			responderPeticion(p);
 		}
+		cola.clear();
 	}
 	
 	/*
 	 	estado = BUSCADA;
 		Ti = Ci
-		Multidifusión de la petición <Ti, pi> de entrada en SC
-		Espera hasta que (nº de respuestas = (N-1));
+		Multidifusiï¿½n de la peticiï¿½n <Ti, pi> de entrada en SC
+		Espera hasta que (nï¿½ de respuestas = (N-1));
 		estado = TOMADA;
 		Ci = Ci + 1 // LC1
 	 */
 	public void entrarEnSC() {
 		this.estado = Proceso.BUS;
+		System.out.println("Buscando en " + this.pi);
 		this.ti = this.ci;
-		for (int i=1; i < procesos.length; i++) {
-			// No me mando peticiones a mí mismo
+		for (int i=1; i < procesos.length(); i++) {
+			// No me mando peticiones a mï¿½ mismo
 			if (i == this.pi) {
 				continue;
 			}
-			
-			request("http://" + procesos[i] + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" + this.ti);
+			System.out.println("http://" + procesos.getString(i-1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" + this.ti + "&from=" + this.pi);
+			request("http://" + procesos.getString(i-1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" + this.ti + "&from=" + this.pi);
 		}
 		
 		accederSC();
 	}
 	
 	protected void responderPeticion(int p) {
-		request("http://" + procesos[p] + ":8080/Distribuidos/despachador/respuesta?id=" + p);
+		System.out.println("Soy: " + this.pi + " Respondiendo a: " + p);
+		request("http://" + procesos.getString(p-1) + ":8080/Distribuidos/despachador/respuesta?id=" + p);
 	}
 	
 	protected void escribirEntradaSC() {
@@ -152,6 +161,7 @@ public class Proceso extends Thread {
 	
 	// *(Ti, pi) < (Tj, pj) implica que Ti < Tj o que T = Tj y pi < pj
 	protected boolean compareT(int tj, int pj) {
+		System.out.println(this.ti + "|" + tj + " " + this.pi + "|" + pj);
 		if (ti < tj || (ti == tj && pi < pj)) {
 			return true;
 		}
