@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 
 public class NTP {
-	public static final int REP = 8;
+	public static final int REP = 10;
 	private static ArrayList<WebTarget> maquinas;
 	public static long offset, delay;
 
