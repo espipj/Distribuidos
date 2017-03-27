@@ -30,7 +30,7 @@ public class Despachador implements ControladorRegistro {
 	protected static final int TOTALPROC = 4;
 	protected int maquina;    
 	public static final String DEL= ":";
-	protected Semaphore semNTP,semFinalRegistro;
+	protected Semaphore semReadyNTP, semReadyStart,semFinalRegistro;
 	protected ArrayList<Registro> registros;
 	
 
@@ -66,7 +66,7 @@ public class Despachador implements ControladorRegistro {
     @Path("/inicializar")
     public String inicializar(@QueryParam(value="id") int maquina, @QueryParam(value="json") String json, @QueryParam(value="ip2") String ip2, @QueryParam(value="ip3") String ip3) {
     	registros=new ArrayList<Registro>();
-		semNTP=new Semaphore(0);
+		semReadyStart=new Semaphore(0);
 		
     	semFinalRegistro=new Semaphore(0);
     	System.out.println("Inicializando la máquina " + maquina);
@@ -89,6 +89,14 @@ public class Despachador implements ControladorRegistro {
     		procesos.put(ip2);
     		procesos.put(ip2);
     		//procesos.put(ip3);
+    		//procesos.put(ip3);
+
+    		//Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=" + 2 + "&json=" + procesos.toString());
+    		
+            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
+            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
+            
+            // Listo para recibir peticiones
 
     		try {
 				Util.request("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=" + 1 + "&json=" + 
@@ -97,16 +105,10 @@ public class Despachador implements ControladorRegistro {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		//Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=" + 2 + "&json=" + procesos.toString());
-    		
-            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
-            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
-
-            Util.request("http://"+ip2+":8080/Distribuidos/despachador/EjecutarNTP");
             //Util.request("http://"+ip3+":8080/Distribuidos/despachador/EjecutarNTP");
             
     		try {
-    			semNTP.acquire(10*((TOTALPROC/2)-1));
+    			semReadyStart.acquire(10*((TOTALPROC/2)-1));
     		} catch (InterruptedException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
@@ -117,16 +119,11 @@ public class Despachador implements ControladorRegistro {
     		
             p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos,this);
             p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos,this);
+
+            // Listo para empezare
             
-            try {
-				semNTP.acquire(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
     		System.out.println("Ejecutando NTP.");
         	this.ejecutarNTP((String) procesos.get(0));
-        	
         	
     	}
         
@@ -158,17 +155,8 @@ public class Despachador implements ControladorRegistro {
 		Random rn = new Random();
 		t2=System.currentTimeMillis();
 		r=String.valueOf(t1)+DEL+String.valueOf(t2);
+		this.semReadyStart.release();
 		return r;
-	}
-	
-	@Path("EjecutarNTP")
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public String ejecutarNTP(){
-		this.semNTP.release();
-		
-		return "";
-		
 	}
 	
 	public String ejecutarNTP(String s){
