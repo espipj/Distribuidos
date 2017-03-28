@@ -20,7 +20,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 	
 	Fichero(int maquina, String url, long offset, long delay) {
 		this.maquina = maquina;
-		this.file = new File(maquina + ".log");
+		this.file = new File(filePath(maquina+".log"));
 		System.out.println(this.file.getAbsolutePath());
 		this.semFinalRegistro = new Semaphore(0);
     	this.registros=new ArrayList<Registro>();
@@ -100,4 +100,20 @@ public class Fichero extends Thread implements ControladorRegistro {
 		}
 		
 	}
+	
+	public String filePath(String n) {
+        String filepath;
+        if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
+            filepath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "tiempos" + File.separator + n;
+            String x = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "tiempos";
+            File f = new File(x);
+            f.mkdir();
+        } else {
+            filepath = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos" + File.separator + n;
+            String x = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos";
+            File f = new File(x);
+            f.mkdir();
+        }
+        return filepath;
+    }
 }
