@@ -31,6 +31,8 @@ public class Despachador {
 	protected int maquina;    
 	public static final String DEL= ":";
 	protected Semaphore semReadyNTP, semReadyStart;
+	protected Finalizador finalizador;
+	
 	
 
     @GET
@@ -88,9 +90,10 @@ public class Despachador {
     		//procesos.put(ip3);
 
         	fichero = new Fichero(this.maquina, (String) procesos.get(0), 0, 0);
+        	finalizador = new Finalizador(TOTALPROC / 2);
     		
-            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos, fichero);
-            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos, fichero);
+            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos);
+            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos);
             
             // Listo para recibir peticiones
 
@@ -121,8 +124,8 @@ public class Despachador {
         	this.ejecutarNTP((String) procesos.get(0));
         	fichero = new Fichero(this.maquina, (String) procesos.get(0), NTP.offset, NTP.delay);
         	
-            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos, fichero);
-            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos, fichero);
+            p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos);
+            p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos);
 
             // Listo para empezar
         	
@@ -134,7 +137,6 @@ public class Despachador {
         
         return "";   
     }
-    
 
 	@Path("NTP")
 	@GET
@@ -149,6 +151,15 @@ public class Despachador {
 		System.out.println("Recibo NTP");
 		this.semReadyStart.release();
 		return r;
+	}
+
+	@Path("offset")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getOffset(@QueryParam(value="offset") int offset, @QueryParam(value="id") int maquina) {
+		finalizador.offset[maquina] = offset;
+		finalizador.semReadyEnd.release();
+		return "";
 	}
 	
 	public String ejecutarNTP(String s){

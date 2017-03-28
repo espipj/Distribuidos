@@ -29,20 +29,22 @@ public class Proceso extends Thread {
 	protected Fichero fichero;
 	protected JSONArray procesos;
 	protected Queue<Integer> cola;
+	
+	protected Object colaBlock;
+	protected Object statusBlock;
+	protected Object ciBlock;
+	
 	protected static final String LIB = "LIBERADA";
 	protected static final String TOM = "TOMADA";
 	protected static final String BUS = "BUSCADA";
+	
 	protected static final double MAXSC = 0.3f;
 	protected static final double MINSC = 0.1f;
 	protected static final double MAXPROC = 0.5f;
 	protected static final double MINPROC = 0.3f;
-	protected ControladorRegistro controlador;
 
-	protected Object colaBlock;
-	protected Object statusBlock;
-	protected Object ciBlock;
 
-	Proceso(int id, int total, Fichero fichero, JSONArray procesos, ControladorRegistro cr) {
+	Proceso(int id, int total, Fichero fichero, JSONArray procesos) {
 		this.pi = id;
 		this.ti = ti;
 		this.ci = 0;
@@ -51,19 +53,17 @@ public class Proceso extends Thread {
 		this.procesos = procesos;
 		this.respuesta = new Semaphore(0);
 		this.cola = new LinkedList<Integer>();
-		this.controlador = cr;
 
 		colaBlock = new Object();
 		statusBlock = new Object();
 		ciBlock = new Object();
 
-		String ruta = this.pi + ".log";
 		this.fichero = fichero;
 	}
 
 	public void run() {
 		long o1, d1;
-		for (int i = 0; i < 25; i++) {
+		for (int i = 0; i < 100; i++) {
 			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			try {
 				Thread.sleep((long) (((MAXPROC - MINPROC) * Math.random() + MINPROC) * 1000));
