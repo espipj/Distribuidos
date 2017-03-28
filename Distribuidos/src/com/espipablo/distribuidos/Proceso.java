@@ -133,10 +133,6 @@ public class Proceso extends Thread {
 					+ this.ti + "&from=" + this.pi);
 		}
 
-		accederSC();
-	}
-
-	public void accederSC() {
 		try {
 			this.respuesta.acquire(this.total - 1);
 		} catch (InterruptedException e1) {
