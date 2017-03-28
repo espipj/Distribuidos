@@ -81,5 +81,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 			registros.add(r);
 		}
 		
+		System.out.println("Semaforo: " + semFinalRegistro.availablePermits());
+		
 	}
 }

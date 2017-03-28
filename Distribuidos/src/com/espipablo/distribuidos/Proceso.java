@@ -72,9 +72,6 @@ public class Proceso extends Thread {
 			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			entrarEnSC();
 		}
-		o1=NTP.offset;
-		d1=NTP.delay;
-		NTP.ntp(procesos.getString(0));
 	}
 	
 	/*
@@ -158,7 +155,6 @@ public class Proceso extends Thread {
 			
 		//this.entrarEnSC();
 		System.err.println("SOY " + this.pi);
-		controlador.anadirRegistro("P" + this.pi + " E", System.currentTimeMillis());
 		try {
 			Thread.sleep((long) (((MAXSC - MINSC) * Math.random() + MINSC) * 1000));
 		} catch (InterruptedException e) {
