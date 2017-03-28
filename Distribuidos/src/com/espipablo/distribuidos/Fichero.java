@@ -124,7 +124,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 		this.offset = (this.offset + o1) / 2;
 		this.delay = (this.delay + d1) / 2;
 		for (Registro registro : registros) {
-			registro.tiempo+=this.delay;
+			registro.tiempo+=this.offset + this.delay;
 			
 		}
 

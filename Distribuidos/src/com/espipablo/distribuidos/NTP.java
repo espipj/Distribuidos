@@ -2,6 +2,8 @@ package com.espipablo.distribuidos;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -28,6 +30,7 @@ public class NTP {
 			long auxO, auxD;
 			t0 = System.currentTimeMillis();
 			aux = Util.request("http://" + s + ":8080/Distribuidos/despachador/NTP");
+			System.out.println(aux);
 			t3 = System.currentTimeMillis();
 			String[] a = aux.split(Despachador.DEL);
 			t1 = Long.valueOf(a[0]);
