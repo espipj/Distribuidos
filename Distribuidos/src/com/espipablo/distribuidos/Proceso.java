@@ -64,12 +64,12 @@ public class Proceso extends Thread {
 	public void run() {
 		long o1, d1;
 		for (int i = 0; i < 100; i++) {
+			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			try {
 				Thread.sleep((long) (((MAXPROC - MINPROC) * Math.random() + MINPROC) * 1000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			entrarEnSC();
 		}
 	}
