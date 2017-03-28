@@ -57,7 +57,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 		try {
 			bw = new BufferedWriter(new FileWriter(this.file));
 			for (Registro registro : registros) {
-					bw.write(registro.registro + " " + registro.tiempo);
+					bw.write(registro.registro + " " + registro.tiempo + "\n");
 			}
 		    bw.close();
 		} catch (IOException e) {
