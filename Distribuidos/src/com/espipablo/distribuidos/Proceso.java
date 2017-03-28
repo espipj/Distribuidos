@@ -84,7 +84,7 @@ public class Proceso extends Thread {
 		responde inmediatamente a pj 
 	 */
 	public void recibirPeticion(int tj, int pj) {
-		System.out.println("Recibiendo peticion en " + this.pi + " de " + pj);
+		//System.out.println("Recibiendo peticion en " + this.pi + " de " + pj);
 		
 		synchronized(this.ciBlock) {
 			ci = max(ci, tj) + 1;
@@ -105,7 +105,7 @@ public class Proceso extends Thread {
 	}
 	
 	public void recibirRespuesta() {
-		System.out.println("Respuesta recibida en: " + this.pi);
+		//System.out.println("Respuesta recibida en: " + this.pi);
 		this.respuesta.release();
 	}
 	
@@ -125,14 +125,14 @@ public class Proceso extends Thread {
 			this.ti = this.ci;
 		}
 		
-		System.out.println("Buscando en " + this.pi);
+		//System.out.println("Buscando en " + this.pi);
 		
 		for (int i=1; i < procesos.length()+1; i++) {
 			// No me mando peticiones a mi mismo
 			if (i == this.pi) {
 				continue;
 			}
-			System.out.println("http://" + procesos.getString(i-1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" + this.ti + "&from=" + this.pi);
+			//System.out.println("http://" + procesos.getString(i-1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" + this.ti + "&from=" + this.pi);
 			request("http://" + procesos.getString(i-1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" + this.ti + "&from=" + this.pi);
 		}
 		
@@ -177,7 +177,7 @@ public class Proceso extends Thread {
 	}
 	
 	protected void responderPeticion(int p) {
-		System.out.println("Soy: " + this.pi + " Respondiendo a: " + p);
+		//System.out.println("Soy: " + this.pi + " Respondiendo a: " + p);
 		request("http://" + procesos.getString(p-1) + ":8080/Distribuidos/despachador/respuesta?id=" + p);
 	}
 	
@@ -197,7 +197,7 @@ public class Proceso extends Thread {
 	
 	// *(Ti, pi) < (Tj, pj) implica que Ti < Tj o que T = Tj y pi < pj
 	protected boolean compareT(int tj, int pj) {
-		System.out.println(this.ti + "|" + tj + " " + this.pi + "|" + pj);
+		//System.out.println(this.ti + "|" + tj + " " + this.pi + "|" + pj);
 		if (ti < tj || (ti == tj && pi < pj)) {
 			return true;
 		}
