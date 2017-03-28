@@ -63,7 +63,7 @@ public class Proceso extends Thread {
 
 	public void run() {
 		long o1, d1;
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 25; i++) {
 			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			try {
 				Thread.sleep((long) (((MAXPROC - MINPROC) * Math.random() + MINPROC) * 1000));

@@ -32,7 +32,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 	public void run() {
         // Meter esto en fichero y que extienda de Thread
         try {
-			semFinalRegistro.acquire(400);
+			semFinalRegistro.acquire(100);
 			
 			if (this.maquina != 0)
 			{
@@ -43,9 +43,9 @@ public class Fichero extends Thread implements ControladorRegistro {
 			}
 			
 			Collections.sort(registros);
-			for (Registro registro : registros) {
+			/*for (Registro registro : registros) {
 				System.out.println(registro.registro + registro.tiempo);
-			}
+			}*/
 			escribirRegistros();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -124,7 +124,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 		this.offset = (this.offset + o1) / 2;
 		this.delay = (this.delay + d1) / 2;
 		for (Registro registro : registros) {
-			registro.tiempo+=this.offset + this.delay;
+			registro.tiempo+=this.delay;
 			
 		}
 
