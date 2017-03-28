@@ -91,6 +91,7 @@ public class Despachador {
 
         	fichero = new Fichero(this.maquina, (String) procesos.get(0), 0, 0);
         	finalizador = new Finalizador(TOTALPROC / 2);
+        	finalizador.start();
     		
             p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos);
             p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos);
