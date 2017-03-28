@@ -154,6 +154,7 @@ public class Proceso extends Thread {
 		synchronized(this.ciBlock) {
 			this.ci++;
 		}
+		this.escribirEntradaSC();
 			
 		//this.entrarEnSC();
 		System.err.println("SOY " + this.pi);
@@ -168,7 +169,7 @@ public class Proceso extends Thread {
 	}
 	
 	public void salirSC() {
-		controlador.anadirRegistro("P" + this.pi + " S", System.currentTimeMillis());
+		this.escribirSalidaSC();
 		this.estado = Proceso.LIB;
 		
 		synchronized(this.colaBlock) {
@@ -185,11 +186,13 @@ public class Proceso extends Thread {
 	}
 	
 	protected void escribirEntradaSC() {
-		this.fichero.escribirEntradaSC(this.pi);
+		this.fichero.anadirRegistro("P" + this.pi + " E", System.currentTimeMillis());
+		//this.fichero.escribirEntradaSC(this.pi);
 	}
 	
 	protected void escribirSalidaSC() {
-		this.fichero.escribirSalidaSC(this.pi);
+		this.fichero.anadirRegistro("P" + this.pi + " S", System.currentTimeMillis());
+		//this.fichero.escribirSalidaSC(this.pi);
 	}
 	
 	protected int max(int num1, int num2) {

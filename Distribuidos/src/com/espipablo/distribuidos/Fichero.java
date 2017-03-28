@@ -14,18 +14,30 @@ public class Fichero extends Thread implements ControladorRegistro {
 	protected File file;
 	protected Semaphore semFinalRegistro;
 	protected ArrayList<Registro> registros;
+	protected String url;
+	public long offset;
+	public long delay;
 	
-	Fichero(int maquina) {
+	Fichero(int maquina, String url, long offset, long delay) {
 		this.maquina = maquina;
 		this.file = new File(maquina + ".log");
 		this.semFinalRegistro = new Semaphore(0);
     	this.registros=new ArrayList<Registro>();
+    	this.url = url;
+    	this.offset = offset;
+    	this.delay = delay;
 	}
 	
 	public void run() {
         // Meter esto en fichero y que extienda de Thread
         try {
 			semFinalRegistro.acquire(400);
+			
+			NTP.ntp(url);
+
+			this.offset = (this.offset + NTP.offset) / 2;
+			this.delay = (this.delay + NTP.delay) / 2;
+			
 			Collections.sort(registros);
 			for (Registro registro : registros) {
 				System.out.println(registro.registro + registro.tiempo);

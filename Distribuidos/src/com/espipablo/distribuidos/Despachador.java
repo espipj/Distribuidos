@@ -71,8 +71,7 @@ public class Despachador {
     	this.maquina = maquina;
     	JSONArray procesos;
     	
-    	Fichero fichero = new Fichero(this.maquina);
-    	
+    	Fichero fichero = null;
     	if (this.maquina == 0) {
     		procesos = new JSONArray();
     		try {
@@ -88,6 +87,7 @@ public class Despachador {
     		//procesos.put(ip3);
     		//procesos.put(ip3);
 
+        	fichero = new Fichero(this.maquina, (String) procesos.get(0), 0, 0);
     		
             p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos, fichero);
             p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos, fichero);
@@ -116,17 +116,19 @@ public class Despachador {
     		
     	} else {
     		procesos = new JSONArray(json);
-    		
+
+    		System.out.println("Ejecutando NTP.");
+        	this.ejecutarNTP((String) procesos.get(0));
+        	fichero = new Fichero(this.maquina, (String) procesos.get(0), NTP.offset, NTP.delay);
+        	
             p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos, fichero);
             p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos, fichero);
 
-            // Listo para empezare
-            
-    		System.out.println("Ejecutando NTP.");
-        	this.ejecutarNTP((String) procesos.get(0));
+            // Listo para empezar
         	
     	}
         
+    	fichero.start();
         p1.start();
         p2.start();
         
