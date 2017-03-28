@@ -37,8 +37,9 @@ public class Fichero extends Thread implements ControladorRegistro {
 			if (this.maquina != 0)
 			{
 				NTP.ntp(url);
-				this.offset = (this.offset + NTP.offset) / 2;
-				this.delay = (this.delay + NTP.delay) / 2;
+				/*NTP.offset/delay son offset y delay calculados al final, en this.offset/delay estan los iniciales
+				 * (pasados en la inicialización del fichero)*/
+				this.corregirTiempos(NTP.offset, NTP.delay);
 			}
 			
 			Collections.sort(registros);
@@ -116,4 +117,16 @@ public class Fichero extends Thread implements ControladorRegistro {
         }
         return filepath;
     }
+	
+
+
+	public void corregirTiempos(long o1, long d1) {
+		this.offset = (this.offset + o1) / 2;
+		this.delay = (this.delay + d1) / 2;
+		for (Registro registro : registros) {
+			registro.tiempo+=this.offset;
+			
+		}
+
+	}
 }
