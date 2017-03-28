@@ -245,8 +245,4 @@ public class Proceso extends Thread {
 		return result;
 
 	}
-
-	public void corregirTiempos(long o1, long d1) {
-
-	}
 }
