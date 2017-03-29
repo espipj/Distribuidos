@@ -65,7 +65,7 @@ public class Despachador {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/inicializar")
-    public String inicializar(@QueryParam(value="id") int maquina, @QueryParam(value="json") String json, @QueryParam(value="ip2") String ip2, @QueryParam(value="ip3") String ip3) {
+    public String inicializar(@QueryParam(value="id") int maquina, @QueryParam(value="json") String json, @QueryParam(value="ip1") String ip1, @QueryParam(value="ip2") String ip2, @QueryParam(value="ip3") String ip3) {
 		semReadyStart=new Semaphore(0);
 		
     	System.out.println("Inicializando la máquina " + maquina);
@@ -76,14 +76,8 @@ public class Despachador {
     	Fichero fichero = null;
     	if (this.maquina == 0) {
     		procesos = new JSONArray();
-    		try {
-				procesos.put(InetAddress.getLocalHost().getHostAddress());
-				procesos.put(InetAddress.getLocalHost().getHostAddress());
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return "Error en la inicialización del proceso principal";
-			}
+			procesos.put(ip1);
+			procesos.put(ip1);
     		procesos.put(ip2);
     		procesos.put(ip2);
 //    		procesos.put(ip3);
