@@ -112,8 +112,30 @@ public class Fichero extends Thread implements ControladorRegistro {
             File f = new File(x);
             f.mkdir();
         } else {
-            filepath = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos" + File.separator + n;
-            String x = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos";
+            /*filepath = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos" + File.separator + n;
+            String x = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos";*/
+        	filepath = System.getProperty("user.home")
+        			+ File.separator
+        			+ "Z"
+        			+ File.separator
+        			+ "Distribuidos"
+        			+ File.separator
+        			+ "PractObligatoria"
+                	+ File.separator
+        			+ "tiempos"
+                	+ File.separator
+        			+ n;
+        	
+            String x = System.getProperty("user.home")
+        			+ File.separator
+        			+ "Z"
+        			+ File.separator
+        			+ "Distribuidos"
+        			+ File.separator
+        			+ "PractObligatoria"
+                	+ File.separator
+        			+ "tiempos";
+            
             File f = new File(x);
             f.mkdir();
         }
