@@ -39,20 +39,19 @@ public class Util {
         try {
             br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String output;
-        String result = "";
-        try {
+
+            String output;
+            String result = "";
             while ((output = br.readLine()) != null) {
                 result += output;
             }
+
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        conn.disconnect();
-        return result;
 
+        conn.disconnect();
+        return "";
     }
 }
