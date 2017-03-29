@@ -154,11 +154,11 @@ public class Despachador {
 		return r;
 	}
 
-	@Path("offset")
+	@Path("delay")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getOffset(@QueryParam(value="offset") int offset, @QueryParam(value="id") int maquina) {
-		finalizador.offset[maquina] = offset;
+	public String getOffset(@QueryParam(value="delay") int delay, @QueryParam(value="id") int maquina) {
+		finalizador.delay[maquina] = delay;
 		finalizador.semReadyEnd.release();
 		return "";
 	}

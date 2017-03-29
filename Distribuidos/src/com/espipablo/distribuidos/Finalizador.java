@@ -7,12 +7,12 @@ public class Finalizador extends Thread {
 	
 	public Semaphore semReadyEnd;
 	protected int totalMaquinas;
-	public long[] offset;
+	public long[] delay;
 	
 	Finalizador(int total) {
 		this.semReadyEnd = new Semaphore(0);
 		this.totalMaquinas = total;
-		this.offset = new long[3];
+		this.delay = new long[3];
 	}
 	
 	public void run() {
@@ -20,13 +20,13 @@ public class Finalizador extends Thread {
 		try {
 			semReadyEnd.acquire(totalMaquinas);
 			
-			String offsets = "";
-			for (int i=1; i < offset.length; i++) {
-				offsets += offset[i] + " ";
+			String delays = "";
+			for (int i=1; i < delay.length; i++) {
+				delays += delay[i] + " ";
 			}
 			
 			System.out.println("Ejecutando... ");
-			Runtime.getRuntime().exec("~/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh " + offsets + " > resultado.log");
+			Runtime.getRuntime().exec("~/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh " + delays + " > resultado.log");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

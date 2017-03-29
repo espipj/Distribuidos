@@ -62,7 +62,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 			}
 		    bw.close();
 		    
-		    Util.request("http://" + url + ":8080/Distribuidos/despachador/offset?id=" + this.maquina + "&offset=" + this.offset);
+		    Util.request("http://" + url + ":8080/Distribuidos/despachador/delay?id=" + this.maquina + "&delay=" + this.delay);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

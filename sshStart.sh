@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ./sshStart i0901995 172.20.2.14 172.20.2.15
+
 cp -R ~/Z/Distribuidos/PractObligatoria/Distribuidos/Distribuidos/Distribuidos.war ~/Z/Distribuidos/PractObligatoria/tomcat/webapps/Distribuidos.war
 ~/Z/Distribuidos/PractObligatoria/tomcat/bin/startup.sh
 
