@@ -26,7 +26,7 @@ public class Finalizador extends Thread {
 			}
 			
 			System.out.println("Ejecutando... ");
-			Runtime.getRuntime().exec("./juntar.sh " + offsets + " > resultado.log");
+			Runtime.getRuntime().exec("~/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh " + offsets + " > resultado.log");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
