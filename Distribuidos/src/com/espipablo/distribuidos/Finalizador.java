@@ -31,6 +31,7 @@ public class Finalizador extends Thread {
 //			pb.redirectError(Redirect.INHERIT);
 //			Process p = pb.start();
 			Runtime.getRuntime().exec(System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh");
+			System.out.println("Terminado.");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
