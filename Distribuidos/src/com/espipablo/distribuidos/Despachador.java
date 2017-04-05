@@ -118,6 +118,7 @@ public class Despachador {
     		}
     		
     	} else {
+    		System.out.println(json);
     		procesos = new JSONArray(json);
 
     		System.out.println("Ejecutando NTP.");
