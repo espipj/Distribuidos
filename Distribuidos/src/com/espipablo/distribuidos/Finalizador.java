@@ -1,7 +1,6 @@
 package com.espipablo.distribuidos;
 
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.Semaphore;
 
 public class Finalizador extends Thread {
@@ -27,10 +26,11 @@ public class Finalizador extends Thread {
 			}
 			
 			System.out.println("Ejecutando... ");
-			ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh " + delays);
-			pb.redirectOutput(Redirect.INHERIT);
-			pb.redirectError(Redirect.INHERIT);
-			Process p = pb.start();
+//			ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh " + delays);
+//			pb.redirectOutput(Redirect.INHERIT);
+//			pb.redirectError(Redirect.INHERIT);
+//			Process p = pb.start();
+			Runtime.getRuntime().exec(System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh " + delays);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
