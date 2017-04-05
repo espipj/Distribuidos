@@ -22,4 +22,5 @@ ssh $1@$3 mkdir ~/tomcat && cp -R "$tomcat/*" "~/tomcat/" && "$tomcat/bin/shutdo
 ssh $1@$4 mkdir ~/tomcat && cp -R "$tomcat/*" "~/tomcat/" && "$tomcat/bin/shutdown.sh" && sleep 5 && "$tomcat/bin/startup.sh"
 
 # We launch our program in main server
+sleep 1
 curl -v http://localhost:8080/Distribuidos/despachador/inicializar?maquina=0\&ip1=$2\&ip2=$3\&ip3=$4
