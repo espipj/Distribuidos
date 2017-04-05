@@ -138,6 +138,7 @@ public class Despachador {
 			}
             Util.request("http://" + sibling + ":8080/Distribuidos/despachador/ready");
             try {
+            	System.out.println(sibling);
             	System.out.println("Voy a acquire");
 				semReadyStart.acquire(1);
 				System.out.println("Salgo acquire");
