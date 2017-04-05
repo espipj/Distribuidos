@@ -216,17 +216,21 @@ public class Proceso extends Thread {
 		} catch (ProtocolException e) {
 			e.printStackTrace();
 		}
+
+		BufferedReader br = null;
 		try {
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
 			}
+
+			try {
+				br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+			} catch (IOException e) {
+				
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-		} catch (IOException e) {
+			br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 			e.printStackTrace();
 		}
 		String output;
@@ -239,6 +243,7 @@ public class Proceso extends Thread {
 			e.printStackTrace();
 		}
 		conn.disconnect();
+		System.out.println(result);
 		return result;
 
 	}
