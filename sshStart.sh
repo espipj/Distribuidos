@@ -14,7 +14,7 @@ sleep 5
 # We clean OLD logs
 rm -r $tomcat/logs/*
 # We copy the new War to the shared folder
-cp -R $projectDirDistribuidos$warDir $tomcat/webapps/Distribuidos.war
+cp -R $projectDir$warDir $tomcat/webapps/Distribuidos.war
 # We run tomcat in main machine
 "$tomcat/bin/startup.sh"
 
