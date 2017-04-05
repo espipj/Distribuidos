@@ -30,9 +30,8 @@ public class Despachador {
 	protected static final int TOTALPROC = 6;
 	protected int maquina;    
 	public static final String DEL= ":";
-	protected Semaphore semReadyNTP, semReadyStart;
+	protected Semaphore semReadyNTP, semReadyStart=new Semaphore(0);
 	protected Finalizador finalizador;
-	
 	
 
     @GET
@@ -44,8 +43,6 @@ public class Despachador {
         } else {
         	p2.recibirPeticion(tj, from);        	
         }
-        System.out.println(p1);
-        System.out.println(p2);
         return "";
     }
 
@@ -67,8 +64,7 @@ public class Despachador {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/inicializar")
     public String inicializar(@QueryParam(value="id") int maquina, @QueryParam(value="json") String json, @QueryParam(value="ip1") String ip1, @QueryParam(value="ip2") String ip2, @QueryParam(value="ip3") String ip3) {
-		semReadyStart=new Semaphore(0);
-		
+				
     	System.out.println("Inicializando la máquina " + maquina);
     	
     	this.maquina = maquina;
@@ -76,6 +72,7 @@ public class Despachador {
     	
     	Fichero fichero = null;
     	if (this.maquina == 0) {
+    		semReadyStart=new Semaphore(0);
     		procesos = new JSONArray();
 			procesos.put(ip1);
 			procesos.put(ip1);
@@ -122,7 +119,6 @@ public class Despachador {
     		}
     		
     	} else {
-    		System.out.println(json);
     		procesos = new JSONArray(json);
 
     		System.out.println("Ejecutando NTP.");
@@ -141,7 +137,6 @@ public class Despachador {
             	sibling=(String) procesos.get(1);				
 			}
             Util.request("http://" + sibling + ":8080/Distribuidos/despachador/ready");
-            semReadyStart=new Semaphore(0);
             try {
 				semReadyStart.acquire(1);
 			} catch (InterruptedException e) {

@@ -127,9 +127,9 @@ public class Proceso extends Thread {
 				//System.out.println(procesos.getString(i - 1));
 				continue;
 			}
-			 System.out.println("http://" + procesos.getString(i-1) +
-			 ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" +
-			 this.ti + "&from=" + this.pi);
+//			 System.out.println("http://" + procesos.getString(i-1) +
+//			 ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" +
+//			 this.ti + "&from=" + this.pi);
 			request("http://" + procesos.getString(i - 1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj="
 					+ this.ti + "&from=" + this.pi);
 		}
@@ -243,7 +243,7 @@ public class Proceso extends Thread {
 			e.printStackTrace();
 		}
 		conn.disconnect();
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 
 	}
