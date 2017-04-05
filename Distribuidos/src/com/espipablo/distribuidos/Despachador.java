@@ -27,7 +27,7 @@ public class Despachador {
 
 	protected Proceso p1;
 	protected Proceso p2;
-	protected static final int TOTALPROC = 4;
+	protected static final int TOTALPROC = 6;
 	protected int maquina;    
 	public static final String DEL= ":";
 	protected Semaphore semReadyNTP, semReadyStart;
