@@ -132,9 +132,9 @@ public class Despachador {
             Util.request("http://" + (String) procesos.get(0) + ":8080/Distribuidos/despachador/ready");
             String sibling;
             if(maquina==1){
-            	sibling=(String) procesos.get(2);
+            	sibling=(String) procesos.get(1);
             }else {
-            	sibling=(String) procesos.get(1);				
+            	sibling=(String) procesos.get(2);				
 			}
             Util.request("http://" + sibling + ":8080/Distribuidos/despachador/ready");
             try {
