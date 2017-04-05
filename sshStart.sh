@@ -9,7 +9,7 @@ tomcatDir="tomcat"
 tomcat=$projectDir$tomcatDir
 
 # We clean OLD logs
-rm -r $tomcat/logs/*
+#rm -r $tomcat/logs/*
 # We copy the new War to the shared folder
 cp $projectDir$warDir $tomcat/webapps/Distribuidos.war
 # We run tomcat in main machine
