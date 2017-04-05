@@ -27,7 +27,8 @@ public class Finalizador extends Thread {
 			}
 			
 			System.out.println("Ejecutando... ");
-			ProcessBuilder pb = new ProcessBuilder(System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh", String.valueOf(delay[0]));
+			String[] CMD_ARRAY=new String[]{ System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh",String.valueOf(delay[0])};
+			ProcessBuilder pb = new ProcessBuilder(CMD_ARRAY);
 			pb.redirectOutput(Redirect.INHERIT);
 			pb.redirectError(Redirect.INHERIT);
 			Process p = pb.start();
