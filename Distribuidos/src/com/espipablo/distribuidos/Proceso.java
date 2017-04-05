@@ -124,7 +124,7 @@ public class Proceso extends Thread {
 		for (int i = 1; i < procesos.length() + 1; i++) {
 			// No me mando peticiones a mi mismo
 			if (i == this.pi) {
-				System.out.println(procesos.getString(i - 1));
+				//System.out.println(procesos.getString(i - 1));
 				continue;
 			}
 			// System.out.println("http://" + procesos.getString(i-1) +
