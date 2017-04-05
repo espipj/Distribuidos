@@ -104,8 +104,8 @@ public class Despachador {
 			}
             
     		try {
-    			System.out.println(10*((TOTALPROC/2)-1));
-    			semReadyStart.acquire(10*((TOTALPROC/2)-1));
+    			System.out.println(10*((TOTALPROC/2)-1+(TOTALPROC/2-1)));
+    			semReadyStart.acquire(10*((TOTALPROC/2)-1+(TOTALPROC/2-1)));
     		} catch (InterruptedException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
@@ -120,8 +120,9 @@ public class Despachador {
         	
             p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos);
             p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos);
-
+            
             // Listo para empezar
+            Util.request("http://" + (String) procesos.get(0) + ":8080/Distribuidos/despachador/ready");
         	
     	}
         
@@ -153,6 +154,14 @@ public class Despachador {
 	public String getOffset(@QueryParam(value="delay") int delay, @QueryParam(value="id") int maquina) {
 		finalizador.delay[maquina] = delay;
 		finalizador.semReadyEnd.release();
+		return "";
+	}
+	
+	@Path("ready")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String ready() {
+		semReadyStart.release();
 		return "";
 	}
 	
