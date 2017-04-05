@@ -19,6 +19,7 @@ public class Finalizador extends Thread {
 	public void run() {
 		
 		try {
+			System.out.println(totalMaquinas);
 			semReadyEnd.acquire(totalMaquinas);
 			
 			String delays = "";
