@@ -43,6 +43,7 @@ public class Comprobador {
 	public static void main(String args[])
 		{
 		HashMap<String, Double> desviaciones=new HashMap<String,Double>();
+		
 		int desvPorProceso=0;
 		double[] desv=new double[]{0,0,0};
 		int contViolaciones=0;
@@ -94,7 +95,8 @@ public class Comprobador {
 		System.out.println("Num de procesos: "+maxId);
 		if(maxId % args.length != 0)
 			{
-			System.err.println("Num de procesos debe ser mUltiplo del nUmero de desviaciones introducidos");
+
+				System.err.println("Num de procesos debe ser mUltiplo del nUmero de desviaciones introducidos: "+args.length);
 			System.exit(1);
 			}
 		desvPorProceso=maxId/args.length;
