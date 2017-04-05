@@ -108,10 +108,10 @@ public class Despachador {
     			
     			System.out.println(
     					10*((TOTALPROC/2)-1)
-						+(TOTALPROC/2-1));
+						+(TOTALPROC/2-1)+1);
     			semReadyStart.acquire(
     					10*((TOTALPROC/2)-1)
-    							+(TOTALPROC/2-1));
+    							+(TOTALPROC/2-1)+1);
     		} catch (InterruptedException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
