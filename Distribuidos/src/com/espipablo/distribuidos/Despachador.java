@@ -104,6 +104,7 @@ public class Despachador {
 			}
             
     		try {
+    			
     			System.out.println(
     					10*((TOTALPROC/2)-1)
 						+(TOTALPROC/2-1));
