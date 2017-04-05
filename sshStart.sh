@@ -16,8 +16,8 @@ cp $projectDir$warDir $tomcat/webapps/Distribuidos.war
 
 # We copy tomcat server to local machine, we shutdown the server and we run it again
 mkdir -p /home/$1/tomcat && cp -a $tomcat/. /home/$1/tomcat/ && /home/$1/tomcat/bin/shutdown.sh && sleep 2 && /home/$1/tomcat/bin/startup.sh
-ssh $1@$3 "mkdir -p /home/$1/tomcat && cp -a $tomcat/. /home/$1/tomcat/ && /home/$1/tomcat/bin/shutdown.sh && sleep 2 && /home/$1/tomcat/bin/startup.sh"
-ssh $1@$4 "mkdir -p /home/$1/tomcat && cp -a $tomcat/. /home/$1/tomcat/ && /home/$1/tomcat/bin/shutdown.sh && sleep 2 && /home/$1/tomcat/bin/startup.sh"
+ssh $1@$3 "mkdir -p /home/$1/tomcat && cp -a $tomcat/. /home/$1/tomcat/ && /home/$1/tomcat/bin/shutdown.sh && sleep 2 && /home/$1/tomcat/bin/startup.sh &"
+ssh $1@$4 "mkdir -p /home/$1/tomcat && cp -a $tomcat/. /home/$1/tomcat/ && /home/$1/tomcat/bin/shutdown.sh && sleep 2 && /home/$1/tomcat/bin/startup.sh &"
 
 # We launch our program in main server
 sleep 1
