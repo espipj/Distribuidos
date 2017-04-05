@@ -229,7 +229,7 @@ public class Proceso extends Thread {
 				
 				e.printStackTrace();
 			}
-		} catch (IOException e) {
+		} catch (IOException | RuntimeException e) {
 			br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
 			e.printStackTrace();
 		}
