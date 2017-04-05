@@ -129,6 +129,20 @@ public class Despachador {
             
             // Listo para empezar
             Util.request("http://" + (String) procesos.get(0) + ":8080/Distribuidos/despachador/ready");
+            String sibling;
+            if(maquina==1){
+            	sibling=(String) procesos.get(2);
+            }else {
+            	sibling=(String) procesos.get(1);				
+			}
+            Util.request("http://" + sibling + ":8080/Distribuidos/despachador/ready");
+            semReadyStart=new Semaphore(0);
+            try {
+				semReadyStart.acquire(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	
     	}
         
