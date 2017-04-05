@@ -44,7 +44,8 @@ public class Despachador {
         } else {
         	p2.recibirPeticion(tj, from);        	
         }
-        
+        System.out.println(p1);
+        System.out.println(p2);
         return "";
     }
 
