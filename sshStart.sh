@@ -20,5 +20,5 @@ ssh $1@$3 "mkdir -p /home/$1/tomcat && cp -a $tomcat/. /home/$1/tomcat/ && JRE_H
 ssh $1@$4 "mkdir -p /home/$1/tomcat && cp -a $tomcat/. /home/$1/tomcat/ && JRE_HOME=/opt/jdk1.8.0_60 /home/$1/tomcat/bin/shutdown.sh && sleep 2 && rm -R /home/$1/tomcat/logs/* && JRE_HOME=/opt/jdk1.8.0_60 /home/$1/tomcat/bin/startup.sh &"
 
 # We launch our program in main server
-sleep 1
+sleep 2
 curl -v http://localhost:8080/Distribuidos/despachador/inicializar?maquina=0\&ip1=$2\&ip2=$3\&ip3=$4
