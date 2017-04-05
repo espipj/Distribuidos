@@ -113,6 +113,10 @@ public class Despachador {
     			semReadyStart.acquire(
     					10*((TOTALPROC/2)-1)
     							+(TOTALPROC/2-1));
+    			RequestThread r1=new RequestThread("http://" + ip2 + ":8080/Distribuidos/despachador/ready");
+    			RequestThread r2=new RequestThread("http://" + ip3 + ":8080/Distribuidos/despachador/ready");
+				r1.start();
+				r2.start();
     		} catch (InterruptedException e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();
@@ -129,13 +133,6 @@ public class Despachador {
             p2 = new Proceso(maquina * 2 + 2, TOTALPROC, fichero, procesos);
             
             // Listo para empezar
-            String sibling;
-            try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
             Util.request("http://" + (String) procesos.get(0) + ":8080/Distribuidos/despachador/ready");
 //            if(maquina==1){
 //            	sibling=(String) procesos.get(1);
@@ -143,15 +140,14 @@ public class Despachador {
 //            	sibling=(String) procesos.get(2);				
 //			}
 //            Util.request("http://" + sibling + ":8080/Distribuidos/despachador/ready");
-//            try {
-//            	System.out.println(sibling);
-//            	System.out.println("Voy a acquire");
-//				semReadyStart.acquire(1);
-//				System.out.println("Salgo acquire");
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+            try {
+            	System.out.println("Voy a acquire");
+				semReadyStart.acquire(1);
+				System.out.println("Salgo acquire");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //        	
     	}
         
