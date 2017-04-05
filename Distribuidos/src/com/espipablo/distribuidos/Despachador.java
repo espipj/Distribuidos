@@ -96,7 +96,7 @@ public class Despachador {
     			// Sacar esto a un hilo
 				System.out.println("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=1");
 				Util.request("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=1" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
-				System.out.println("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=1");
+				System.out.println("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=2");
 				Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=2" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
