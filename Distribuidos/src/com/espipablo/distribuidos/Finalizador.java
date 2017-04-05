@@ -30,7 +30,8 @@ public class Finalizador extends Thread {
 //			pb.redirectOutput(Redirect.INHERIT);
 //			pb.redirectError(Redirect.INHERIT);
 //			Process p = pb.start();
-			Runtime.getRuntime().exec(System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh "+delays);
+			//No funciona con los delays por algun motivo
+			Runtime.getRuntime().exec(System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh",delay[1]);//+ delays
 			System.out.println("Terminado.");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
