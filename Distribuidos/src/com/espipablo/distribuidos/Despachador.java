@@ -95,10 +95,14 @@ public class Despachador {
 
     		try {
     			// Sacar esto a un hilo
-				System.out.println("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=1");
-				Util.request("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=1" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
-				System.out.println("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=2");
-				Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=2" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
+    			RequestThread r1=new RequestThread("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=1" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
+				RequestThread r2=new RequestThread("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=2" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
+				r1.start();
+				r2.start();
+//				System.out.println("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=1");
+//				Util.request("http://" + ip2 + ":8080/Distribuidos/despachador/inicializar?id=1" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
+//				System.out.println("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=2");
+//				Util.request("http://" + ip3 + ":8080/Distribuidos/despachador/inicializar?id=2" + "&json=" + URLEncoder.encode(procesos.toString(), "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -190,6 +194,26 @@ public class Despachador {
 		NTP.ntp(s);
 		
 		return "";
+		
+	}
+	
+	private class RequestThread extends Thread{
+		private String url;
+		
+		public RequestThread(String s) {
+			// TODO Auto-generated constructor stub
+			this.url=s;
+		}
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			super.run();
+			System.out.println(this.url);
+			Util.request(this.url);
+			
+			
+		}
 		
 	}
 
