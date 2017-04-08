@@ -106,8 +106,16 @@ public class Fichero extends Thread implements ControladorRegistro {
 	public String filePath(String n) {
         String filepath;
         if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
-            filepath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "tiempos" + File.separator + n;
-            String x = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "tiempos";
+            filepath = System.getProperty("user.home") 
+            		/*+ File.separator + "Desktop" */
+            		+ File.separator + "tiempos" 
+            		+ File.separator 
+            		+ n;
+            String x = System.getProperty("user.home") 
+            		/*+ File.separator 
+            		+ "Desktop" */
+            		+ File.separator 
+            		+ "tiempos";
             File f = new File(x);
             f.mkdir();
         } else {
@@ -115,7 +123,10 @@ public class Fichero extends Thread implements ControladorRegistro {
             String x = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos";*/
         	filepath = System.getProperty("user.home")
         			+ File.separator
-        			+ "Z"
+        			+"tiempos"
+        			+File.separator
+        			+n;
+        			/*+ "Z"
         			+ File.separator
         			+ "Distribuidos"
         			+ File.separator
@@ -123,17 +134,20 @@ public class Fichero extends Thread implements ControladorRegistro {
                 	+ File.separator
         			+ "tiempos"
                 	+ File.separator
-        			+ n;
+        			+ n;*/
         	
             String x = System.getProperty("user.home")
         			+ File.separator
-        			+ "Z"
+        			+"tiempos";
+        			/*+ "Z"
         			+ File.separator
         			+ "Distribuidos"
         			+ File.separator
         			+ "PractObligatoria"
                 	+ File.separator
-        			+ "tiempos";
+        			+ "tiempos"
+                	+ File.separator
+        			+ n;*/
             
             File f = new File(x);
             f.mkdir();
