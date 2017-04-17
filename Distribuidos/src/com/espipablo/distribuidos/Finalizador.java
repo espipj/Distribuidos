@@ -1,11 +1,9 @@
 package com.espipablo.distribuidos;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringReader;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.Semaphore;
 
@@ -32,23 +30,17 @@ public class Finalizador extends Thread {
 			semReadyEnd.acquire(totalMaquinas);
 			
 			for (int i=2; i < procesos.length(); i+=2) {
-				BufferedReader br;
-				br=new BufferedReader(new StringReader(Util.request("http://" + procesos.getString(i) + ":8080/Distribuidos/despachador/fichero")));
+				JSONArray tiempos = new JSONArray(Util.request("http://" + procesos.getString(i) + ":8080/Distribuidos/despachador/fichero"));
 				BufferedWriter bw;
 				bw = new BufferedWriter(new FileWriter(new File(System.getProperty("user.home")
 	            		+ File.separator + "tiempos" 
 	            		+ File.separator
 	            		+ i/2
 	            		+ ".log")));
-				br.lines().forEach(line -> {
-					try {
-						bw.write(line);
-						bw.newLine();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				});
+				for (int j=0; j < tiempos.length(); j++) {
+					bw.write(tiempos.getInt(j));
+					bw.newLine();
+				}
 			    bw.close();
 			}
 			

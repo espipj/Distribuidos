@@ -7,9 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import org.json.JSONArray;
 
 public class Util {
 	public static String request(String urlS) {
@@ -46,7 +47,7 @@ public class Util {
             String output;
             String result = "";
             while ((output = br.readLine()) != null) {
-                result += output+"\n";
+                result += output;
             }
 
             return result;
@@ -59,7 +60,15 @@ public class Util {
     }
 	
 	public static String readFileToString(String path) throws IOException {
-		return new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
+		JSONArray jsonArr = new JSONArray();
+        try {
+            Files.lines(Paths.get(path)).forEach(string -> {
+            	jsonArr.put(string);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return jsonArr.toString();
 	}
 
 }
