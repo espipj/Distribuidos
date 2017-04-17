@@ -1,20 +1,22 @@
-//package ricart;
+package ricart;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
- * Usage: java Comprobador nombreFichero [desviaciOn1] [desviaciOn2]
- *         nombreFichero - path al fichero de logs, fusionado y corregido segUn derivas (ver FORMATO debajo)
- *         desviacion1   - opcional, desviaciOn elegida para los procesos de la mAquina 2
- *         desviacion2   - opcional, desviaciOn elegida para los procesos de la mAquina 3
+ * Usage: java Comprobador nombreFichero [delay1] [delay2]
+ *         nombreFichero - path al fichero de logs, fusionado y corregido segUn offsets (ver FORMATO debajo)
+ *         delay1   - opcional, delay para los procesos de la mAquina 2
+ *         delay2   - opcional, delay para los procesos de la mAquina 3
  *
  * El programa detecta el nUmero de procesos en el log (N) y el nUmero de mAquinas (M=1,2 o 3) dependiendo de si
- * se ha pasado desviacion1 y/o desviacion2. Asigna a cada mAquina Nm procesos=N/M, de modo que los procesos
- * P1-PNm van a la mAquina 1, PNm+1 - P2Nm a la mAquina 2, etc.
+ * se ha pasado delay1 y/o delay2. Asigna a cada mAquina Nm procesos=N/M, de modo que los procesos
+ * P1-PNm van a la mAquina 1, PNm+1 - P2Nm a la mAquina 2, P2Nm+1-P3N a la mAquina 3.
  *
  * FORMATO
  * Varias filas con el siguiente formato:
@@ -25,8 +27,8 @@ import java.util.HashMap;
  * M puede ser "E" o "S"
  *
  * El fichero debe estar ordenado segUn time (y en caso del mismo tiempo, segUn i),
- * y cada time corregido segUn la deriva media de la mAquina en la que corre su proceso
- * segUn el protocolo NTP.
+ * y cada time corregido segUn la estimaciÃ³n de la desviaciÃ³n (offset) media de la
+ * mAquina en la que corre su proceso segUn el protocolo NTP.
  *
  * time puede ser un valor entero o real (se debe usar punto como separador decimal, no coma)
  *
@@ -40,6 +42,7 @@ import java.util.HashMap;
  *
  */
 public class Comprobador {
+
 	public static void main(String args[])
 		{
 		HashMap<String, Double> desviaciones=new HashMap<String,Double>();
@@ -101,15 +104,15 @@ public class Comprobador {
 
 
 		if(args.length>=2)
-			desv[1]=(new Double(args[1])).doubleValue();
+			desv[1]=(new Double(args[1])).doubleValue()*0.5;
 		if(args.length==3)
-			desv[2]=(new Double(args[2])).doubleValue();
+			desv[2]=(new Double(args[2])).doubleValue()*0.5;
 
 		for(int i=1;i<=maxId;i++)
 			desviaciones.put("P"+i, desv[(i-1)/desvPorProceso]);
 		for(String s:desviaciones.keySet())
 			{
-			System.out.println("Para el proceso "+s+" de usa la desviaciOn "+desviaciones.get(s));
+			System.out.println("Para el proceso "+s+" se usa delay: "+desviaciones.get(s));
 			}
 
 		String cadAnt=null;
@@ -147,6 +150,11 @@ public class Comprobador {
 			t2=new Double(st[2]).doubleValue();
 
 			String cadx=null;
+			DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
+			otherSymbols.setDecimalSeparator('.');
+			otherSymbols.setGroupingSeparator(',');
+
+			DecimalFormat dd=new DecimalFormat("#.############", otherSymbols);
 
 			//Comprueba que no ocurre nunca que dos elementos entren a la vez en la secciOn crItica
 			if(!p1.equals(p2) && m1.equals("E"))	//E1 E|SX (X!=1)
@@ -157,7 +165,7 @@ public class Comprobador {
 				String[] stx=st;
 				while(!p1.equals(px) && !mx.equals("S"))	//recorremos entradas hasta que encontremos la salida
 					{
-					System.out.println("LInea: "+cont+" Posible violaciOn de la SC: "+stx[0]+" "+stx[1]+" "+stx[2]);
+					System.out.println("LInea: "+cont+" Posible violaciOn de la SC: "+stx[0]+" "+stx[1]+" "+dd.format(Double.parseDouble(stx[2])));
 					sospechosos.add(stx);	//Y agnadimos todas las entradas intermedias como sospechosas
 					cadx=br.readLine();
 					stx=cadx.split(" ");
@@ -197,7 +205,6 @@ public class Comprobador {
 						}
 					}
 
-				DecimalFormat dd=new DecimalFormat("#.#");
 				//La casuIstica se podrIa complicar mAs, pero creo que asI es suficiente
 				switch(caso)
 					{
