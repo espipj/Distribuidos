@@ -46,7 +46,7 @@ public class Util {
             String output;
             String result = "";
             while ((output = br.readLine()) != null) {
-                result += output;
+                result += output+"\n";
             }
 
             return result;

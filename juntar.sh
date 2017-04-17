@@ -1,5 +1,5 @@
-cat ~/Z/Distribuidos/PractObligatoria/tiempos/0.log ~/Z/Distribuidos/PractObligatoria/tiempos/1.log ~/Z/Distribuidos/PractObligatoria/tiempos/2.log > ../tiempos/total.log
-sort -k 3 ../tiempos/total.log > ../tiempos/totalSorted.log
+cat ~/tiempos/0.log ~/tiempos/1.log ~/tiempos/2.log > ~/tiempos/total.log
+sort -k 3 ~/tiempos/total.log > ~/tiempos/totalSorted.log
 javac Comprobador.java
 echo $1
 echo $2
