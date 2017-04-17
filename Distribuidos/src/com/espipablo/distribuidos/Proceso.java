@@ -1,9 +1,6 @@
 package com.espipablo.distribuidos;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -11,10 +8,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
-import java.util.zip.CRC32;
 
 import org.json.JSONArray;
 
@@ -46,8 +41,8 @@ public class Proceso extends Thread {
 
 	Proceso(int id, int total, Fichero fichero, JSONArray procesos) {
 		this.pi = id;
-		this.ti = ti;
 		this.ci = 0;
+		this.ti = 0;
 		this.estado = Proceso.LIB;
 		this.total = total;
 		this.procesos = procesos;
@@ -62,7 +57,6 @@ public class Proceso extends Thread {
 	}
 
 	public void run() {
-		long o1, d1;
 		for (int i = 0; i < 100; i++) {
 			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			try {

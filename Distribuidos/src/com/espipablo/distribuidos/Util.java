@@ -7,6 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Util {
 	public static String request(String urlS) {
@@ -54,4 +57,9 @@ public class Util {
         conn.disconnect();
         return "";
     }
+	
+	public static String readFileToString(String path) throws IOException {
+		return new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
+	}
+
 }

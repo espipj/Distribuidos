@@ -8,17 +8,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.InetAddress;
 import java.net.URLEncoder;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 @Path("/despachador")
@@ -82,7 +76,7 @@ public class Despachador {
     		procesos.put(ip3);
 
         	fichero = new Fichero(this.maquina, (String) procesos.get(0), 0, 0);
-        	finalizador = new Finalizador(TOTALPROC / 2);
+        	finalizador = new Finalizador(TOTALPROC / 2, procesos);
         	finalizador.start();
     		
             p1 = new Proceso(maquina * 2 + 1, TOTALPROC, fichero, procesos);
@@ -164,8 +158,8 @@ public class Despachador {
 	public String pedirTiempo(){
 		String r;
 		long t1,t2;
+		
 		t1=System.currentTimeMillis();
-		Random rn = new Random();
 		t2=System.currentTimeMillis();
 		r=String.valueOf(t1)+DEL+String.valueOf(t2);
 		System.out.println("Recibo NTP");
@@ -188,6 +182,17 @@ public class Despachador {
 	public String ready() {
 		semReadyStart.release();
 		return "";
+	}
+	
+	@Path("fichero")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public String readFile() throws IOException  {
+		return Util.readFileToString(System.getProperty("user.home")
+            		+ File.separator + "tiempos" 
+            		+ File.separator 
+            		+ this.maquina
+            		+ ".log");
 	}
 	
 	public String ejecutarNTP(String s){
