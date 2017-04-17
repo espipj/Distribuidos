@@ -127,7 +127,7 @@ public class Comprobador {
 			cont++;
 
 			//Volver a rutina de E en cadAnt, S en cad
-			while(cadAnt.split(" ")[1].equals("S"))
+			while(cadAnt!=null && cadAnt.split(" ")[1].equals("S"))
 				{
 				cadAnt=cad;
 				cad=br.readLine();
