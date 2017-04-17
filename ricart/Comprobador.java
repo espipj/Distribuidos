@@ -133,7 +133,9 @@ public class Comprobador {
 				cad=br.readLine();
 				cont++;
 				}
-
+			if(cad==null){
+				break;
+			}
 			//1) ComprobaciOn de que no se viola la secciOn crItica
 			//Si estA ordenado por tiempo, cada 2 lIneas tienen que ser del mismo proceso (E y S)
 			//Y tienen que ir consecutivamente E S, E S, E S
