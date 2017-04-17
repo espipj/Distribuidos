@@ -38,7 +38,7 @@ public class Finalizador extends Thread {
 	            		+ i/2
 	            		+ ".log")));
 				for (int j=0; j < tiempos.length(); j++) {
-					bw.write(tiempos.getInt(j));
+					bw.write(tiempos.getString(j));
 					bw.newLine();
 				}
 			    bw.close();
