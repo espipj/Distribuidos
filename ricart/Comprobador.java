@@ -13,28 +13,28 @@ import java.util.Locale;
  *         nombreFichero - path al fichero de logs, fusionado y corregido segUn offsets (ver FORMATO debajo)
  *         delay1   - opcional, delay para los procesos de la mAquina 2
  *         delay2   - opcional, delay para los procesos de la mAquina 3
- *         
- * El programa detecta el nUmero de procesos en el log (N) y el nUmero de mAquinas (M=1,2 o 3) dependiendo de si 
+ *
+ * El programa detecta el nUmero de procesos en el log (N) y el nUmero de mAquinas (M=1,2 o 3) dependiendo de si
  * se ha pasado delay1 y/o delay2. Asigna a cada mAquina Nm procesos=N/M, de modo que los procesos
  * P1-PNm van a la mAquina 1, PNm+1 - P2Nm a la mAquina 2, P2Nm+1-P3N a la mAquina 3.
- *         
- * FORMATO        
+ *
+ * FORMATO
  * Varias filas con el siguiente formato:
  * Pi M time
- * 
+ *
  * La separaciOn de columnas debe realizarse mediante espacios SIMPLES
  * i va de 1 a N, siendo N el num de procesos
  * M puede ser "E" o "S"
- * 
- * El fichero debe estar ordenado segUn time (y en caso del mismo tiempo, segUn i), 
+ *
+ * El fichero debe estar ordenado segUn time (y en caso del mismo tiempo, segUn i),
  * y cada time corregido segUn la estimaciÃ³n de la desviaciÃ³n (offset) media de la
  * mAquina en la que corre su proceso segUn el protocolo NTP.
- * 
+ *
  * time puede ser un valor entero o real (se debe usar punto como separador decimal, no coma)
  *
  * El programa decide si ha habido alguna violaciOn de la secciOn crItica, informando del nUmero total
  * de violaciones detectadas, las lIneas donde se producen, y la razOn para la detecciOn
- * 
+ *
  * [ Para juntar y ordenar los ficheros, en sistemas Unix podemos usar:
  * cat 0.log 1.log 2.log ... > total.log
  * sort -k 3 total.log > totalSorted.log ]
@@ -49,7 +49,7 @@ public class Comprobador {
 		int desvPorProceso=0;
 		double[] desv=new double[]{0,0,0};
 		int contViolaciones=0;
-		
+
 		try{
 		if(args.length<1 || args.length>3)
 			{
@@ -62,7 +62,7 @@ public class Comprobador {
 			 " se ha pasado desviacion1 y/o desviacion2. Asigna a cada mAquina Nm procesos=N/M, de modo que los procesos\n"+
 			 " P1-PNm van a la mAquina 1, PNm+1 - P2Nm a la mAquina 2, etc.\n"+
 			 "\n"+
-			 " FORMATO  \n"+      
+			 " FORMATO  \n"+
 			 " Varias filas con el siguiente formato:\n"+
 			 " Pi M time\n"+
 			 "\n"+
@@ -70,7 +70,7 @@ public class Comprobador {
 			 " i va de 1 a N, siendo N el num de procesos\n"+
 			 " M puede ser \"E\" o \"S\"\n"+
 			 "\n"+
-			 " El fichero debe estar ordenado segUn time (y en caso del mismo tiempo, segUn i),\n"+ 
+			 " El fichero debe estar ordenado segUn time (y en caso del mismo tiempo, segUn i),\n"+
 			 " y cada time corregido segUn la deriva media de la mAquina en la que corre su proceso\n"+
 			 " segUn el protocolo NTP.\n"+
 			 "\n"+
@@ -93,7 +93,7 @@ public class Comprobador {
 			int id=new Integer(st[0].replace("P", "")).intValue();
 			if(id>maxId)	maxId=id;
 			}
-		
+
 		System.out.println("Num de procesos: "+maxId);
 		if(maxId % args.length != 0)
 			{
@@ -101,31 +101,31 @@ public class Comprobador {
 			System.exit(1);
 			}
 		desvPorProceso=maxId/args.length;
-			
-		
+
+
 		if(args.length>=2)
 			desv[1]=(new Double(args[1])).doubleValue()*0.5;
 		if(args.length==3)
 			desv[2]=(new Double(args[2])).doubleValue()*0.5;
-		
+
 		for(int i=1;i<=maxId;i++)
 			desviaciones.put("P"+i, desv[(i-1)/desvPorProceso]);
 		for(String s:desviaciones.keySet())
 			{
 			System.out.println("Para el proceso "+s+" se usa delay: "+desviaciones.get(s));
 			}
-		
+
 		String cadAnt=null;
 		int cont=1;
 		double t1,t2;
 		ArrayList<String[]> sospechosos=new ArrayList<String[]>();//contiene las entradas en medio de la estancia en una secciOn crItica
-		
+
 		br=new BufferedReader(new FileReader(args[0]));
 		cadAnt=br.readLine();
 		while((cad=br.readLine())!=null)
 			{
 			cont++;
-			
+
 			//Volver a rutina de E en cadAnt, S en cad
 			while(cadAnt!=null && cadAnt.split(" ")[1].equals("S"))
 				{
@@ -133,29 +133,29 @@ public class Comprobador {
 				cad=br.readLine();
 				cont++;
 				}
-			
+
 			//1) ComprobaciOn de que no se viola la secciOn crItica
 			//Si estA ordenado por tiempo, cada 2 lIneas tienen que ser del mismo proceso (E y S)
 			//Y tienen que ir consecutivamente E S, E S, E S
 			String[] st=cad.split(" ");
 			String[] stAnt=cadAnt.split(" ");
-			
+
 			String p1=stAnt[0];	//Id de proceso (Pn)
 			String p2=st[0];
-			
+
 			String m1=stAnt[1];//Mensaje escrito (E|S)
 			String m2=st[1];
-			
+
 			t1=new Double(stAnt[2]).doubleValue();//Los tiempos
 			t2=new Double(st[2]).doubleValue();
-			
+
 			String cadx=null;
 			DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
 			otherSymbols.setDecimalSeparator('.');
-			otherSymbols.setGroupingSeparator(','); 
+			otherSymbols.setGroupingSeparator(',');
 
 			DecimalFormat dd=new DecimalFormat("#.############", otherSymbols);
-			
+
 			//Comprueba que no ocurre nunca que dos elementos entren a la vez en la secciOn crItica
 			if(!p1.equals(p2) && m1.equals("E"))	//E1 E|SX (X!=1)
 				{
@@ -179,7 +179,7 @@ public class Comprobador {
 				int caso=-1; //0-solo entrada (EES), 1-solo salida(ESS), 2-entrada y salida(EESS)
 				String [] sospechoso=null,sospechoso2=null;
 				double tx=-1;
-			
+
 				//Ahora analizamos todas las entradas sospechosas
 				for(int i=0;i<sospechosos.size();i++)	//Probar quE hace esto en el caso de mucho mogollOn entre medias (deberIa funcionar bien con 1 o dos entre medias)
 					{
@@ -204,11 +204,11 @@ public class Comprobador {
 						break;//de momento sale siempre despuEs del primero
 						}
 					}
-				
+
 				//La casuIstica se podrIa complicar mAs, pero creo que asI es suficiente
 				switch(caso)
 					{
-					//NOTA: en los dos primeros casos podrIa pasar que, por ejemplo en caso 0: 
+					//NOTA: en los dos primeros casos podrIa pasar que, por ejemplo en caso 0:
 					//				E1 EX S1 SX --> EX SX E1 S1 pero es una situaciOn tan extrema que no la estamos comprobando
 					case 0: //E1 EX S1  --> E1 S1 EX?
 						if( (t2-desviaciones.get(p1) > tx + desviaciones.get(px)) )
