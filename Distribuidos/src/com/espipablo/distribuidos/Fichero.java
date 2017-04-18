@@ -20,18 +20,18 @@ public class Fichero extends Thread implements ControladorRegistro {
 	
 	Fichero(int maquina, String url, long offset, long delay) {
 		this.maquina = maquina;
-		this.file = new File(filePath(maquina+".log"));
+		this.file = new File(Util.filePath(maquina + ".log"));
 		System.out.println(this.file.getAbsolutePath());
 		this.semFinalRegistro = new Semaphore(0);
-    	this.registros=new ArrayList<Registro>();
+    	this.registros = new ArrayList<Registro>();
     	this.url = url;
     	this.offset = offset;
     	this.delay = delay;
 	}
 	
 	public void run() {
-        // Meter esto en fichero y que extienda de Thread
         try {
+        	// Esperamos a que se realicen las 400 escrituras de las 100 iteraciones (100 entradas y 100 salidas por cada proceso)
 			semFinalRegistro.acquire(400);
 			
 			if (this.maquina != 0)
@@ -39,20 +39,23 @@ public class Fichero extends Thread implements ControladorRegistro {
 				NTP.ntp(url);
 				/*NTP.offset/delay son offset y delay calculados al final, en this.offset/delay estan los iniciales
 				 * (pasados en la inicialización del fichero)*/
+				// Corregimos los tiempos de acuerdo a lo obtenido después de haber ejecutado NTP
 				this.corregirTiempos(NTP.offset, NTP.delay);
 			}
 			
+			// Ordenamos los registros
 			Collections.sort(registros);
 			/*for (Registro registro : registros) {
 				System.out.println(registro.registro + registro.tiempo);
 			}*/
+			// Finalmente los escribimos en un fichero
 			escribirRegistros();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	// Función encargada de escribir los registros en un fichero
 	protected void escribirRegistros() {
 		BufferedWriter bw;
 		try {
@@ -62,13 +65,14 @@ public class Fichero extends Thread implements ControladorRegistro {
 			}
 		    bw.close();
 		    
+		    // Le indicamos al proceso principal cuál es el delay que tenemos respecto de él
 		    Util.request("http://" + url + ":8080/Distribuidos/despachador/delay?id=" + this.maquina + "&delay=" + this.delay);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void escribirEntradaSC(int pi) {
+	/*public void escribirEntradaSC(int pi) {
 		BufferedWriter bw;
 		try {
 			bw = new BufferedWriter(new FileWriter(this.file));
@@ -88,8 +92,9 @@ public class Fichero extends Thread implements ControladorRegistro {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
+	// Añadimos registro al ArrayList
 	@Override
 	public void anadirRegistro(String s, long l) {
 		semFinalRegistro.release();
@@ -103,60 +108,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 		
 	}
 	
-	public String filePath(String n) {
-        String filepath;
-        if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
-            filepath = System.getProperty("user.home") 
-            		/*+ File.separator + "Desktop" */
-            		+ File.separator + "tiempos" 
-            		+ File.separator 
-            		+ n;
-            String x = System.getProperty("user.home") 
-            		/*+ File.separator 
-            		+ "Desktop" */
-            		+ File.separator 
-            		+ "tiempos";
-            File f = new File(x);
-            f.mkdir();
-        } else {
-            /*filepath = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos" + File.separator + n;
-            String x = System.getProperty("user.home") + File.separator + "Escritorio" + File.separator + "tiempos";*/
-        	filepath = System.getProperty("user.home")
-        			+ File.separator
-        			+"tiempos"
-        			+File.separator
-        			+n;
-        			/*+ "Z"
-        			+ File.separator
-        			+ "Distribuidos"
-        			+ File.separator
-        			+ "PractObligatoria"
-                	+ File.separator
-        			+ "tiempos"
-                	+ File.separator
-        			+ n;*/
-        	
-            String x = System.getProperty("user.home")
-        			+ File.separator
-        			+"tiempos";
-        			/*+ "Z"
-        			+ File.separator
-        			+ "Distribuidos"
-        			+ File.separator
-        			+ "PractObligatoria"
-                	+ File.separator
-        			+ "tiempos"
-                	+ File.separator
-        			+ n;*/
-            
-            File f = new File(x);
-            f.mkdir();
-        }
-        return filepath;
-    }
-	
-
-
+	// Corregimos los tiempos de los registros basándonos en el offset obtenido
 	public void corregirTiempos(long o1, long d1) {
 		this.offset = (this.offset + o1) / 2;
 		this.delay = (this.delay + d1) / 2;

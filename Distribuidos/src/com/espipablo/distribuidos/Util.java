@@ -1,6 +1,7 @@
 package com.espipablo.distribuidos;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -70,5 +71,39 @@ public class Util {
         }
 		return jsonArr.toString();
 	}
+	
+	// Obtenemos la ruta del fichero de log de esta máquina
+	public static String filePath(String n) {
+        String filepath;
+        if (!System.getProperty("os.name").toLowerCase().contains("linux")) {
+            filepath = System.getProperty("user.home")
+            		+ File.separator
+            		+ "tiempos" 
+            		+ File.separator 
+            		+ n;
+            String x = System.getProperty("user.home")
+            		+ File.separator 
+            		+ "tiempos";
+            
+            // Crearemos el directorio en caso de que no exista
+            File f = new File(x);
+            f.mkdir();
+        } else {
+        	filepath = System.getProperty("user.home")
+        			+ File.separator
+        			+"tiempos"
+        			+File.separator
+        			+n;
+        	
+            String x = System.getProperty("user.home")
+        			+ File.separator
+        			+"tiempos";
+            
+            // Creamos el directorio en caso de que no exista
+            File f = new File(x);
+            f.mkdir();
+        }
+        return filepath;
+    }
 
 }

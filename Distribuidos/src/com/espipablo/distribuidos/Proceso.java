@@ -1,12 +1,5 @@
 package com.espipablo.distribuidos;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
@@ -57,6 +50,7 @@ public class Proceso extends Thread {
 	}
 
 	public void run() {
+		// 100 accesos a la sección crítica
 		for (int i = 0; i < 100; i++) {
 			System.out.println("Soy: " + this.pi + " Ronda: " + i);
 			try {
@@ -124,38 +118,41 @@ public class Proceso extends Thread {
 //			 System.out.println("http://" + procesos.getString(i-1) +
 //			 ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj=" +
 //			 this.ti + "&from=" + this.pi);
-			request("http://" + procesos.getString(i - 1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj="
+			Util.request("http://" + procesos.getString(i - 1) + ":8080/Distribuidos/despachador/peticion?id=" + i + "&tj="
 					+ this.ti + "&from=" + this.pi);
 		}
 
 		try {
+			// Esperamos por todas las demás máquinas
 			this.respuesta.acquire(this.total - 1);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}
-		// Entrar en SC
 
 		this.estado = Proceso.TOM;
 		synchronized (this.ciBlock) {
 			this.ci++;
 		}
+		
+		// DENTRO DE LA SECCIÓN CRÍTICA
 		this.escribirEntradaSC();
 
-		// this.entrarEnSC();
 		System.err.println("SOY " + this.pi);
 		try {
 			Thread.sleep((long) (((MAXSC - MINSC) * Math.random() + MINSC) * 1000));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 		this.salirSC();
-		// Escribir en fichero
 	}
 
 	public void salirSC() {
 		this.escribirSalidaSC();
 		this.estado = Proceso.LIB;
+		// FUERA DE LA SECCIÓN CRÍTICA
 
+		// Bloqueamos el objeto cola para que no nos llegue alguna petición mientras estamos procesando la cola y hacemos un clear()
 		synchronized (this.colaBlock) {
 			for (int p : cola) {
 				responderPeticion(p);
@@ -164,21 +161,25 @@ public class Proceso extends Thread {
 		}
 	}
 
+	// Respondemos a una petición de acceso a la sección crítica
 	protected void responderPeticion(int p) {
 		// System.out.println("Soy: " + this.pi + " Respondiendo a: " + p);
-		request("http://" + procesos.getString(p - 1) + ":8080/Distribuidos/despachador/respuesta?id=" + p);
+		Util.request("http://" + procesos.getString(p - 1) + ":8080/Distribuidos/despachador/respuesta?id=" + p);
 	}
 
+	// Escribimos una entrada de acceso a la sección crítica
 	protected void escribirEntradaSC() {
 		this.fichero.anadirRegistro("P" + this.pi + " E", System.currentTimeMillis());
 		// this.fichero.escribirEntradaSC(this.pi);
 	}
 
+	// Escribimos una salida de acceso a la sección crítica
 	protected void escribirSalidaSC() {
 		this.fichero.anadirRegistro("P" + this.pi + " S", System.currentTimeMillis());
 		// this.fichero.escribirSalidaSC(this.pi);
 	}
 
+	// Caculamos cuál es el proceso con un identificador mayor
 	protected int max(int num1, int num2) {
 		return num1 > num2 ? num1 : num2;
 	}
@@ -192,53 +193,4 @@ public class Proceso extends Thread {
 		return false;
 	}
 
-	private String request(String urlS) {
-		URL url = null;
-		try {
-			url = new URL(urlS);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		HttpURLConnection conn = null;
-		try {
-			conn = (HttpURLConnection) url.openConnection();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		try {
-			conn.setRequestMethod("GET");
-		} catch (ProtocolException e) {
-			e.printStackTrace();
-		}
-
-		BufferedReader br = null;
-		try {
-			if (conn.getResponseCode() != 200) {
-				throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-			}
-
-			try {
-				br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-		} catch (IOException | RuntimeException e) {
-			br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-			e.printStackTrace();
-		}
-		String output;
-		String result = "";
-		try {
-			while ((output = br.readLine()) != null) {
-				result += output;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		conn.disconnect();
-		//System.out.println(result);
-		return result;
-
-	}
 }

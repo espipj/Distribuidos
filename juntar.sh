@@ -4,3 +4,4 @@ javac ricart/Comprobador.java
 echo $1
 echo $2
 java ricart/Comprobador ~/tiempos/totalSorted.log $1 $2 > ~/tiempos/resultado.txt
+cat ~/tiempos/resultado.txt

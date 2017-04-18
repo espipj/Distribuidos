@@ -24,19 +24,19 @@ public class Finalizador extends Thread {
 	}
 	
 	public void run() {
-		
 		try {
 			System.out.println(totalMaquinas);
+			// Esperamos a que todas las máquinas hayan escrito en memoria su log
 			semReadyEnd.acquire(totalMaquinas);
 			
+			// Hacemos una petición GET para coger el fichero de log de las demás máquinas (no principales)
 			for (int i=2; i < procesos.length(); i+=2) {
 				JSONArray tiempos = new JSONArray(Util.request("http://" + procesos.getString(i) + ":8080/Distribuidos/despachador/fichero"));
+				
 				BufferedWriter bw;
-				bw = new BufferedWriter(new FileWriter(new File(System.getProperty("user.home")
-	            		+ File.separator + "tiempos" 
-	            		+ File.separator
-	            		+ i/2
-	            		+ ".log")));
+				bw = new BufferedWriter(new FileWriter(new File(Util.filePath(Integer.toString(i/2)))));
+				
+				// Escribimos los logs en local para tratarlos de forma más sencilla
 				for (int j=0; j < tiempos.length(); j++) {
 					bw.write(tiempos.getString(j));
 					bw.newLine();
@@ -44,11 +44,11 @@ public class Finalizador extends Thread {
 			    bw.close();
 			}
 			
-			System.out.println("Ejecutando... ");
-			System.out.println(String.valueOf(delay[1]));
-			System.out.println(String.valueOf(delay[2]));
+			System.out.println("Ejecutando comprobador... ");
+			/*System.out.println(String.valueOf(delay[1]));
+			System.out.println(String.valueOf(delay[2]));*/
 			
-			String[] CMD_ARRAY=new String[]
+			String[] CMD_ARRAY = new String[]
 					{
 						System.getProperty("user.home")+"/Z/Distribuidos/PractObligatoria/Distribuidos/juntar.sh"
 						, String.valueOf(delay[1])
@@ -60,11 +60,7 @@ public class Finalizador extends Thread {
 			pb.start();
 			
 			System.out.println("Terminado.");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (InterruptedException | IOException e) {
 			e.printStackTrace();
 		}
 	}
