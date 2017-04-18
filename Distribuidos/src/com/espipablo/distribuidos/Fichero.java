@@ -15,10 +15,10 @@ public class Fichero extends Thread implements ControladorRegistro {
 	protected Semaphore semFinalRegistro;
 	protected ArrayList<Registro> registros;
 	protected String url;
-	public long offset;
+	public double offset;
 	public long delay;
 	
-	Fichero(int maquina, String url, long offset, long delay) {
+	Fichero(int maquina, String url, double offset, long delay) {
 		this.maquina = maquina;
 		this.file = new File(Util.filePath(maquina + ".log"));
 		System.out.println(this.file.getAbsolutePath());
@@ -109,7 +109,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 	}
 	
 	// Corregimos los tiempos de los registros basándonos en el offset obtenido
-	public void corregirTiempos(long o1, long d1) {
+	public void corregirTiempos(double o1, long d1) {
 		this.offset = (this.offset + o1) / 2;
 		this.delay = (this.delay + d1) / 2;
 		for (Registro registro : registros) {

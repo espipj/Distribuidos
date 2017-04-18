@@ -2,15 +2,18 @@ package com.espipablo.distribuidos;
 
 public class NTP {
 	public static final int REP = 10;
-	public static long offset, delay;
+	public static long delay;
+	public static double  offset;
 
 	// Función encargada de lanzar NTP a la máquina principal
 	public static void ntp(String s) {
-		long d = Long.MAX_VALUE, o = 0;
+		long d = Long.MAX_VALUE;
+		double o = 0;
 		for (int i = 0; i < REP; i++) {
 			String aux;
 			long t0, t1, t2, t3;
-			long auxO, auxD;
+			double auxO; 
+			long auxD;
 			
 			try {
 				Thread.sleep(100);
@@ -46,7 +49,7 @@ public class NTP {
 	}
 
 	// Función encargada de calcular el offset
-	public static long determinarO(long t0, long t1, long t2, long t3) {
+	public static double determinarO(long t0, long t1, long t2, long t3) {
 
 		return (((t1 - t0) + (t2 - t3)) / 2);
 
