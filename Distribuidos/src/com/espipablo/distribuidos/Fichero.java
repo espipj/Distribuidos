@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.concurrent.Semaphore;
 
 public class Fichero extends Thread implements ControladorRegistro {
@@ -61,7 +63,9 @@ public class Fichero extends Thread implements ControladorRegistro {
 	protected void escribirRegistros() {
 		BufferedWriter bw;
 		try {
-			NumberFormat formatter=new DecimalFormat("#0.00");
+			DecimalFormatSymbols otherSymbols=new DecimalFormatSymbols(Locale.GERMAN);
+			otherSymbols.setDecimalSeparator('.');
+			NumberFormat formatter=new DecimalFormat("#0.00",otherSymbols);
 			bw = new BufferedWriter(new FileWriter(this.file));
 			for (Registro registro : registros) {
 					bw.write(registro.registro + " " + formatter.format(registro.tiempo) + "\n");
