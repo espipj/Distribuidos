@@ -34,7 +34,11 @@ public class Finalizador extends Thread {
 				JSONArray tiempos = new JSONArray(Util.request("http://" + procesos.getString(i) + ":8080/Distribuidos/despachador/fichero"));
 				
 				BufferedWriter bw;
-				bw = new BufferedWriter(new FileWriter(new File(Util.filePath(Integer.toString(i/2)))));
+				bw = new BufferedWriter(new FileWriter(new File(System.getProperty("user.home")
+						 	            		+ File.separator + "tiempos" 
+						 	            		+ File.separator
+						 	            		+ i/2
+						 	            		+ ".log")));
 				
 				// Escribimos los logs en local para tratarlos de forma más sencilla
 				for (int j=0; j < tiempos.length(); j++) {
