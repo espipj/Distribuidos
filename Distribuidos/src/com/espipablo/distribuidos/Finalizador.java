@@ -14,13 +14,13 @@ public class Finalizador extends Thread {
 	public Semaphore semReadyEnd;
 	protected int totalMaquinas;
 	protected JSONArray procesos;
-	public long[] delay;
+	public double[] delay;
 	
 	Finalizador(int total, JSONArray procesos) {
 		this.semReadyEnd = new Semaphore(0);
 		this.procesos = procesos;
 		this.totalMaquinas = total;
-		this.delay = new long[3];
+		this.delay = new double[3];
 	}
 	
 	public void run() {

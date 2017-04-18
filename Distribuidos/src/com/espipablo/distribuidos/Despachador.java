@@ -176,7 +176,7 @@ public class Despachador {
 	@Path("delay")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getOffset(@QueryParam(value="delay") int delay, @QueryParam(value="id") int maquina) {
+	public String getOffset(@QueryParam(value="delay") double delay, @QueryParam(value="id") int maquina) {
 		finalizador.delay[maquina] = delay;
 		finalizador.semReadyEnd.release();
 		return "";
