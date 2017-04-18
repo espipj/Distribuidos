@@ -16,7 +16,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 	protected ArrayList<Registro> registros;
 	protected String url;
 	public double offset;
-	public long delay;
+	public double delay;
 	
 	Fichero(int maquina, String url, double offset, long delay) {
 		this.maquina = maquina;
@@ -113,7 +113,7 @@ public class Fichero extends Thread implements ControladorRegistro {
 		this.offset = (this.offset + o1) / 2;
 		this.delay = (this.delay + d1) / 2;
 		for (Registro registro : registros) {
-			registro.tiempo += this.offset;
+			registro.tiempo -= this.offset;
 		}
 
 	}
