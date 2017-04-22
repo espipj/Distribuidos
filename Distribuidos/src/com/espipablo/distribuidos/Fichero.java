@@ -27,15 +27,15 @@ public class Fichero extends Thread implements ControladorRegistro {
 		this.file = new File(Util.filePath(maquina + ".log"));
 		System.out.println(this.file.getAbsolutePath());
 		this.semFinalRegistro = new Semaphore(0);
-    	this.registros = new ArrayList<Registro>();
-    	this.url = url;
-    	this.offset = offset;
-    	this.delay = delay;
+		this.registros = new ArrayList<Registro>();
+		this.url = url;
+		this.offset = offset;
+		this.delay = delay;
 	}
 	
 	public void run() {
-        try {
-        	// Esperamos a que se realicen las 400 escrituras de las 100 iteraciones (100 entradas y 100 salidas por cada proceso)
+		try {
+			// Esperamos a que se realicen las 400 escrituras de las 100 iteraciones (100 entradas y 100 salidas por cada proceso)
 			semFinalRegistro.acquire(400);
 			
 			if (this.maquina != 0)
@@ -70,10 +70,10 @@ public class Fichero extends Thread implements ControladorRegistro {
 			for (Registro registro : registros) {
 					bw.write(registro.registro + " " + formatter.format(registro.tiempo) + "\n");
 			}
-		    bw.close();
-		    
-		    // Le indicamos al proceso principal cuál es el delay que tenemos respecto de él
-		    Util.request("http://" + url + ":8080/Distribuidos/despachador/delay?id=" + this.maquina + "&delay=" + this.delay);
+			bw.close();
+			
+			// Le indicamos al proceso principal cuál es el delay que tenemos respecto de él
+			Util.request("http://" + url + ":8080/Distribuidos/despachador/delay?id=" + this.maquina + "&delay=" + this.delay);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -83,8 +83,8 @@ public class Fichero extends Thread implements ControladorRegistro {
 		BufferedWriter bw;
 		try {
 			bw = new BufferedWriter(new FileWriter(this.file));
-		    bw.write("P" + pi + " E " + System.currentTimeMillis());
-		    bw.close();
+			bw.write("P" + pi + " E " + System.currentTimeMillis());
+			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -94,8 +94,8 @@ public class Fichero extends Thread implements ControladorRegistro {
 		BufferedWriter bw;
 		try {
 			bw = new BufferedWriter(new FileWriter(this.file));
-		    bw.write("P" + pi + " S " + System.currentTimeMillis());
-		    bw.close();
+			bw.write("P" + pi + " S " + System.currentTimeMillis());
+			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

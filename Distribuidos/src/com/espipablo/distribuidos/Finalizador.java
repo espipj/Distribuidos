@@ -35,17 +35,17 @@ public class Finalizador extends Thread {
 				
 				BufferedWriter bw;
 				bw = new BufferedWriter(new FileWriter(new File(System.getProperty("user.home")
-						 	            		+ File.separator + "tiempos" 
-						 	            		+ File.separator
-						 	            		+ i/2
-						 	            		+ ".log")));
+						 						+ File.separator + "tiempos" 
+						 						+ File.separator
+						 						+ i/2
+						 						+ ".log")));
 				
 				// Escribimos los logs en local para tratarlos de forma más sencilla
 				for (int j=0; j < tiempos.length(); j++) {
 					bw.write(tiempos.getString(j));
 					bw.newLine();
 				}
-			    bw.close();
+				bw.close();
 			}
 			
 			System.out.println("Ejecutando comprobador... ");
