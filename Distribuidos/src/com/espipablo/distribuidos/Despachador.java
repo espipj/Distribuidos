@@ -194,7 +194,7 @@ public class Despachador {
 	// Endpoint que lee el fichero de log de esta máquina y lo devuelve como string
 	@Path("fichero")
 	@GET
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String readFile() throws IOException  {
 		return Util.readFileToString(System.getProperty("user.home")
             		+ File.separator + "tiempos" 
