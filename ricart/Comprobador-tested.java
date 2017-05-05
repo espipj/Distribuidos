@@ -116,7 +116,6 @@ public class Comprobador {
 			}
 
 		String cadAnt=null;
-		String cadAnt2=null;
 		int cont=1;
 		double t1,t2;
 		ArrayList<String[]> sospechosos=new ArrayList<String[]>();//contiene las entradas en medio de la estancia en una secciOn crItica
@@ -126,20 +125,12 @@ public class Comprobador {
 		while((cad=br.readLine())!=null)
 			{
 			cont++;
+
 			//Volver a rutina de E en cadAnt, S en cad
 			while(cadAnt.split(" ")[1].equals("S"))
 				{
-				cadAnt2=cadAnt;
 				cadAnt=cad;
 				cad=br.readLine();
-				if(cad==null)	//Caso especial de tener dos S al final del documento
-					{
-					/*cad=cadAn
-					cadAnt=cadAnt2;*/
-					System.out.println("ComprobaciOn terminada");
-					System.out.println("\tViolaciones detectadas: "+contViolaciones);
-					return;
-					}
 				cont++;
 				}
 
