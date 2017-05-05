@@ -1,0 +1,99 @@
+Num de procesos: 6
+Para el proceso P1 se usa delay: 0.0
+Para el proceso P2 se usa delay: 0.0
+Para el proceso P3 se usa delay: 1.0
+Para el proceso P4 se usa delay: 1.0
+Para el proceso P5 se usa delay: 0.75
+Para el proceso P6 se usa delay: 0.75
+LInea: 108 Posible violaciOn de la SC: P3 E 1492513199746.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 120 Posible violaciOn de la SC: P3 E 1492513201163.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 138 Posible violaciOn de la SC: P1 E 1492513203330
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 156 Posible violaciOn de la SC: P3 E 1492513205194.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 168 Posible violaciOn de la SC: P3 E 1492513206338.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 222 Posible violaciOn de la SC: P1 E 1492513211229
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 234 Posible violaciOn de la SC: P1 E 1492513212607
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 252 Posible violaciOn de la SC: P3 E 1492513214390.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 378 Posible violaciOn de la SC: P1 E 1492513227245
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 384 Posible violaciOn de la SC: P3 E 1492513228049.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 414 Posible violaciOn de la SC: P1 E 1492513231386
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 420 Posible violaciOn de la SC: P3 E 1492513231997.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 456 Posible violaciOn de la SC: P3 E 1492513235485.5
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 694 Posible violaciOn de la SC: P2 E 1492513260174
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 712 Posible violaciOn de la SC: P6 E 1492513262330
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 724 Posible violaciOn de la SC: P6 E 1492513263702
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 742 Posible violaciOn de la SC: P2 E 1492513265405
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 772 Posible violaciOn de la SC: P1 E 1492513268301
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 832 Posible violaciOn de la SC: P1 E 1492513274196
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 844 Posible violaciOn de la SC: P1 E 1492513275556
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 910 Posible violaciOn de la SC: P2 E 1492513282034
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 928 Posible violaciOn de la SC: P1 E 1492513283700
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 946 Posible violaciOn de la SC: P2 E 1492513285385
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 952 Posible violaciOn de la SC: P1 E 1492513285974
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 958 Posible violaciOn de la SC: P2 E 1492513286698
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 976 Posible violaciOn de la SC: P1 E 1492513288361
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 988 Posible violaciOn de la SC: P1 E 1492513289600
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1000 Posible violaciOn de la SC: P1 E 1492513290730
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1008 Posible violaciOn de la SC: P5 E 1492513291517
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1012 Posible violaciOn de la SC: P1 E 1492513291970
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1024 Posible violaciOn de la SC: P1 E 1492513293028
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1032 Posible violaciOn de la SC: P5 E 1492513293903
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1036 Posible violaciOn de la SC: P1 E 1492513294380
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1052 Posible violaciOn de la SC: P2 E 1492513296288
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1060 Posible violaciOn de la SC: P1 E 1492513297178
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1072 Posible violaciOn de la SC: P1 E 1492513298571
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1078 Posible violaciOn de la SC: P2 E 1492513299233
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1084 Posible violaciOn de la SC: P1 E 1492513299740
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1096 Posible violaciOn de la SC: P1 E 1492513300903
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1104 Posible violaciOn de la SC: P2 E 1492513301696
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1108 Posible violaciOn de la SC: P1 E 1492513301944
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1128 Posible violaciOn de la SC: P2 E 1492513303763
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1144 Posible violaciOn de la SC: P6 E 1492513305569
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1152 Posible violaciOn de la SC: P2 E 1492513306170
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1194 Posible violaciOn de la SC: P1 E 1492513310463
+  ViolaciOn disuelta por desfases de tiempo
+ComprobaciOn terminada
+	Violaciones detectadas: 0

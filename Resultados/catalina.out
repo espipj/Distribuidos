@@ -1,0 +1,626 @@
+04-May-2017 11:13:48.405 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.13
+04-May-2017 11:13:48.415 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Mar 27 2017 14:25:04 UTC
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         8.5.13.0
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            3.2.0-4-amd64
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          i386
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/jdk1.8.0_60/jre
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_60-b27
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/i0883640/tomcat
+04-May-2017 11:13:48.416 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/i0883640/tomcat
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/i0883640/tomcat/conf/logging.properties
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/i0883640/tomcat
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/i0883640/tomcat
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/i0883640/tomcat/temp
+04-May-2017 11:13:48.417 INFORMACIÓN [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La biblioteca nativa de Apache Tomcat basada en ARP que permite un rendimiento óptimo en entornos de desarrollo no ha sido hallada en java.library.path: /usr/java/packages/lib/i386:/lib:/usr/lib
+04-May-2017 11:13:49.011 INFORMACIÓN [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+04-May-2017 11:13:49.064 INFORMACIÓN [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+04-May-2017 11:13:49.068 INFORMACIÓN [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+04-May-2017 11:13:49.070 INFORMACIÓN [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+04-May-2017 11:13:49.071 INFORMACIÓN [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1705 ms
+04-May-2017 11:13:49.132 INFORMACIÓN [main] org.apache.catalina.core.StandardService.startInternal Arrancando servicio Catalina
+04-May-2017 11:13:49.132 INFORMACIÓN [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/8.5.13
+04-May-2017 11:13:49.176 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Despliegue del archivo /home/i0883640/tomcat/webapps/Distribuidos.war de la aplicación web
+04-May-2017 11:13:50.652 INFORMACIÓN [localhost-startStop-1] org.apache.jasper.servlet.TldScanner.scanJars Al menos un JAR, que se ha explorado buscando TLDs, aún no contenía TLDs. Activar historial de depuración para este historiador para una completa lista de los JARs que fueron explorados y de los que nos se halló TLDs. Saltarse JARs no necesarios durante la exploración puede dar lugar a una mejora de tiempo significativa en el arranque y compilación de JSP .
+04-May-2017 11:13:51.700 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive /home/i0883640/tomcat/webapps/Distribuidos.war has finished in 2.524 ms
+04-May-2017 11:13:51.701 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio /home/i0883640/tomcat/webapps/ROOT de la aplicación web
+04-May-2017 11:13:51.714 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory /home/i0883640/tomcat/webapps/ROOT has finished in 13 ms
+04-May-2017 11:13:51.714 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio /home/i0883640/tomcat/webapps/docs de la aplicación web
+04-May-2017 11:13:51.727 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory /home/i0883640/tomcat/webapps/docs has finished in 13 ms
+04-May-2017 11:13:51.728 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio /home/i0883640/tomcat/webapps/examples de la aplicación web
+04-May-2017 11:13:51.987 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory /home/i0883640/tomcat/webapps/examples has finished in 259 ms
+04-May-2017 11:13:51.987 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio /home/i0883640/tomcat/webapps/host-manager de la aplicación web
+04-May-2017 11:13:52.027 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory /home/i0883640/tomcat/webapps/host-manager has finished in 40 ms
+04-May-2017 11:13:52.027 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Despliegue del directorio /home/i0883640/tomcat/webapps/manager de la aplicación web
+04-May-2017 11:13:52.067 INFORMACIÓN [localhost-startStop-1] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory /home/i0883640/tomcat/webapps/manager has finished in 40 ms
+04-May-2017 11:13:52.075 INFORMACIÓN [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+04-May-2017 11:13:52.091 INFORMACIÓN [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+04-May-2017 11:13:52.097 INFORMACIÓN [main] org.apache.catalina.startup.Catalina.start Server startup in 3025 ms
+Inicializando la máquina 0
+/home/i0883640/tiempos/0.log
+3
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Soy: 1 Ronda: 0
+Soy: 2 Ronda: 0
+SOY 1
+Soy: 1 Ronda: 1
+SOY 2
+Soy: 2 Ronda: 1
+SOY 1
+Soy: 1 Ronda: 2
+SOY 2
+Soy: 2 Ronda: 2
+SOY 1
+Soy: 1 Ronda: 3
+SOY 2
+Soy: 2 Ronda: 3
+SOY 1
+Soy: 1 Ronda: 4
+SOY 2
+Soy: 2 Ronda: 4
+SOY 1
+Soy: 1 Ronda: 5
+SOY 2
+Soy: 2 Ronda: 5
+SOY 1
+Soy: 1 Ronda: 6
+SOY 2
+Soy: 2 Ronda: 6
+SOY 1
+Soy: 1 Ronda: 7
+SOY 2
+Soy: 2 Ronda: 7
+SOY 1
+Soy: 1 Ronda: 8
+SOY 2
+Soy: 2 Ronda: 8
+SOY 1
+Soy: 1 Ronda: 9
+SOY 2
+Soy: 2 Ronda: 9
+SOY 1
+Soy: 1 Ronda: 10
+SOY 2
+Soy: 2 Ronda: 10
+SOY 1
+Soy: 1 Ronda: 11
+SOY 2
+Soy: 2 Ronda: 11
+SOY 1
+Soy: 1 Ronda: 12
+SOY 2
+Soy: 2 Ronda: 12
+SOY 1
+Soy: 1 Ronda: 13
+SOY 2
+Soy: 2 Ronda: 13
+SOY 1
+Soy: 1 Ronda: 14
+SOY 2
+Soy: 2 Ronda: 14
+SOY 1
+Soy: 1 Ronda: 15
+SOY 2
+Soy: 2 Ronda: 15
+SOY 1
+Soy: 1 Ronda: 16
+SOY 2
+Soy: 2 Ronda: 16
+SOY 1
+Soy: 1 Ronda: 17
+SOY 2
+Soy: 2 Ronda: 17
+SOY 1
+Soy: 1 Ronda: 18
+SOY 2
+Soy: 2 Ronda: 18
+SOY 1
+Soy: 1 Ronda: 19
+SOY 2
+Soy: 2 Ronda: 19
+SOY 1
+Soy: 1 Ronda: 20
+SOY 2
+Soy: 2 Ronda: 20
+SOY 1
+Soy: 1 Ronda: 21
+SOY 2
+Soy: 2 Ronda: 21
+SOY 1
+Soy: 1 Ronda: 22
+SOY 2
+Soy: 2 Ronda: 22
+SOY 1
+Soy: 1 Ronda: 23
+SOY 2
+Soy: 2 Ronda: 23
+SOY 1
+Soy: 1 Ronda: 24
+SOY 2
+Soy: 2 Ronda: 24
+SOY 1
+Soy: 1 Ronda: 25
+SOY 2
+Soy: 2 Ronda: 25
+SOY 1
+Soy: 1 Ronda: 26
+SOY 2
+Soy: 2 Ronda: 26
+SOY 1
+Soy: 1 Ronda: 27
+SOY 2
+Soy: 2 Ronda: 27
+SOY 1
+Soy: 1 Ronda: 28
+SOY 2
+Soy: 2 Ronda: 28
+SOY 1
+Soy: 1 Ronda: 29
+SOY 2
+Soy: 2 Ronda: 29
+SOY 1
+Soy: 1 Ronda: 30
+SOY 2
+Soy: 2 Ronda: 30
+SOY 1
+Soy: 1 Ronda: 31
+SOY 2
+Soy: 2 Ronda: 31
+SOY 1
+Soy: 1 Ronda: 32
+SOY 2
+Soy: 2 Ronda: 32
+SOY 1
+Soy: 1 Ronda: 33
+SOY 2
+Soy: 2 Ronda: 33
+SOY 1
+Soy: 1 Ronda: 34
+SOY 2
+Soy: 2 Ronda: 34
+SOY 1
+Soy: 1 Ronda: 35
+SOY 2
+Soy: 2 Ronda: 35
+SOY 1
+Soy: 1 Ronda: 36
+SOY 2
+SOY 1
+Soy: 2 Ronda: 36
+Soy: 1 Ronda: 37
+SOY 2
+SOY 1
+Soy: 2 Ronda: 37
+Soy: 1 Ronda: 38
+SOY 2
+SOY 1
+Soy: 2 Ronda: 38
+Soy: 1 Ronda: 39
+SOY 2
+SOY 1
+Soy: 2 Ronda: 39
+Soy: 1 Ronda: 40
+SOY 2
+SOY 1
+Soy: 2 Ronda: 40
+Soy: 1 Ronda: 41
+SOY 2
+SOY 1
+Soy: 2 Ronda: 41
+Soy: 1 Ronda: 42
+SOY 2
+SOY 1
+Soy: 2 Ronda: 42
+Soy: 1 Ronda: 43
+SOY 2
+SOY 1
+Soy: 2 Ronda: 43
+Soy: 1 Ronda: 44
+SOY 2
+SOY 1
+Soy: 2 Ronda: 44
+Soy: 1 Ronda: 45
+SOY 2
+SOY 1
+Soy: 2 Ronda: 45
+Soy: 1 Ronda: 46
+SOY 2
+SOY 1
+Soy: 2 Ronda: 46
+Soy: 1 Ronda: 47
+SOY 2
+SOY 1
+Soy: 2 Ronda: 47
+Soy: 1 Ronda: 48
+SOY 2
+SOY 1
+Soy: 2 Ronda: 48
+Soy: 1 Ronda: 49
+SOY 2
+SOY 1
+Soy: 2 Ronda: 49
+Soy: 1 Ronda: 50
+SOY 2
+SOY 1
+Soy: 2 Ronda: 50
+Soy: 1 Ronda: 51
+SOY 2
+SOY 1
+Soy: 2 Ronda: 51
+Soy: 1 Ronda: 52
+SOY 2
+SOY 1
+Soy: 2 Ronda: 52
+Soy: 1 Ronda: 53
+SOY 2
+SOY 1
+Soy: 2 Ronda: 53
+Soy: 1 Ronda: 54
+SOY 2
+SOY 1
+Soy: 2 Ronda: 54
+Soy: 1 Ronda: 55
+SOY 2
+SOY 1
+Soy: 2 Ronda: 55
+Soy: 1 Ronda: 56
+SOY 2
+SOY 1
+Soy: 2 Ronda: 56
+Soy: 1 Ronda: 57
+SOY 2
+SOY 1
+Soy: 2 Ronda: 57
+Soy: 1 Ronda: 58
+SOY 2
+SOY 1
+Soy: 2 Ronda: 58
+Soy: 1 Ronda: 59
+SOY 2
+SOY 1
+Soy: 2 Ronda: 59
+Soy: 1 Ronda: 60
+SOY 2
+SOY 1
+Soy: 2 Ronda: 60
+Soy: 1 Ronda: 61
+SOY 2
+SOY 1
+Soy: 2 Ronda: 61
+Soy: 1 Ronda: 62
+SOY 2
+Soy: 2 Ronda: 62
+SOY 1
+Soy: 1 Ronda: 63
+SOY 2
+Soy: 2 Ronda: 63
+SOY 1
+Soy: 1 Ronda: 64
+SOY 2
+Soy: 2 Ronda: 64
+SOY 1
+Soy: 1 Ronda: 65
+SOY 2
+Soy: 2 Ronda: 65
+SOY 1
+Soy: 1 Ronda: 66
+SOY 2
+Soy: 2 Ronda: 66
+SOY 1
+Soy: 1 Ronda: 67
+SOY 2
+Soy: 2 Ronda: 67
+SOY 1
+Soy: 1 Ronda: 68
+SOY 2
+Soy: 2 Ronda: 68
+SOY 1
+Soy: 1 Ronda: 69
+SOY 2
+Soy: 2 Ronda: 69
+SOY 1
+Soy: 1 Ronda: 70
+SOY 2
+Soy: 2 Ronda: 70
+SOY 1
+Soy: 1 Ronda: 71
+SOY 2
+Soy: 2 Ronda: 71
+SOY 1
+Soy: 1 Ronda: 72
+SOY 2
+Soy: 2 Ronda: 72
+SOY 1
+Soy: 1 Ronda: 73
+SOY 2
+Soy: 2 Ronda: 73
+SOY 1
+Soy: 1 Ronda: 74
+SOY 2
+Soy: 2 Ronda: 74
+SOY 1
+Soy: 1 Ronda: 75
+SOY 2
+Soy: 2 Ronda: 75
+SOY 1
+Soy: 1 Ronda: 76
+SOY 2
+Soy: 2 Ronda: 76
+SOY 1
+Soy: 1 Ronda: 77
+SOY 2
+Soy: 2 Ronda: 77
+SOY 1
+Soy: 1 Ronda: 78
+SOY 2
+Soy: 2 Ronda: 78
+SOY 1
+Soy: 1 Ronda: 79
+SOY 2
+Soy: 2 Ronda: 79
+SOY 1
+Soy: 1 Ronda: 80
+SOY 2
+Soy: 2 Ronda: 80
+SOY 1
+Soy: 1 Ronda: 81
+SOY 2
+Soy: 2 Ronda: 81
+SOY 1
+Soy: 1 Ronda: 82
+SOY 2
+Soy: 2 Ronda: 82
+SOY 1
+Soy: 1 Ronda: 83
+SOY 2
+Soy: 2 Ronda: 83
+SOY 1
+Soy: 1 Ronda: 84
+SOY 2
+Soy: 2 Ronda: 84
+SOY 1
+Soy: 1 Ronda: 85
+SOY 2
+Soy: 2 Ronda: 85
+SOY 1
+SOY 2
+Soy: 1 Ronda: 86
+Soy: 2 Ronda: 86
+SOY 1
+SOY 2
+Soy: 1 Ronda: 87
+Soy: 2 Ronda: 87
+SOY 1
+SOY 2
+Soy: 1 Ronda: 88
+Soy: 2 Ronda: 88
+SOY 1
+SOY 2
+Soy: 1 Ronda: 89
+Soy: 2 Ronda: 89
+SOY 1
+SOY 2
+Soy: 1 Ronda: 90
+Soy: 2 Ronda: 90
+SOY 1
+SOY 2
+Soy: 1 Ronda: 91
+Soy: 2 Ronda: 91
+SOY 1
+SOY 2
+Soy: 1 Ronda: 92
+Soy: 2 Ronda: 92
+SOY 1
+SOY 2
+Soy: 1 Ronda: 93
+Soy: 2 Ronda: 93
+SOY 1
+SOY 2
+Soy: 1 Ronda: 94
+Soy: 2 Ronda: 94
+SOY 1
+Soy: 1 Ronda: 95
+SOY 2
+Soy: 2 Ronda: 95
+SOY 1
+Soy: 1 Ronda: 96
+SOY 2
+Soy: 2 Ronda: 96
+SOY 1
+Soy: 1 Ronda: 97
+SOY 2
+Soy: 2 Ronda: 97
+SOY 1
+Soy: 1 Ronda: 98
+SOY 2
+Soy: 2 Ronda: 98
+SOY 1
+Soy: 1 Ronda: 99
+SOY 2
+Soy: 2 Ronda: 99
+SOY 1
+SOY 2
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Recibo NTP
+Ejecutando comprobador... 
+Terminado.
+2.5
+2.0
+Num de procesos: 6
+Para el proceso P1 se usa delay: 0.0
+Para el proceso P2 se usa delay: 0.0
+Para el proceso P3 se usa delay: 1.25
+Para el proceso P4 se usa delay: 1.25
+Para el proceso P5 se usa delay: 1.0
+Para el proceso P6 se usa delay: 1.0
+LInea: 550 Posible violaciOn de la SC: P2 E 1493889331993
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 574 Posible violaciOn de la SC: P2 E 1493889334305
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 610 Posible violaciOn de la SC: P2 E 1493889337393
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 646 Posible violaciOn de la SC: P2 E 1493889341332
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 682 Posible violaciOn de la SC: P2 E 1493889344839
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 718 Posible violaciOn de la SC: P2 E 1493889348231
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 752 Posible violaciOn de la SC: P2 E 1493889351551
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 756 Posible violaciOn de la SC: P1 E 1493889351967
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 768 Posible violaciOn de la SC: P1 E 1493889353296
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 776 Posible violaciOn de la SC: P2 E 1493889354241
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 780 Posible violaciOn de la SC: P1 E 1493889354784
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 788 Posible violaciOn de la SC: P2 E 1493889355368
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 800 Posible violaciOn de la SC: P2 E 1493889356327
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 812 Posible violaciOn de la SC: P2 E 1493889357512
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 816 Posible violaciOn de la SC: P1 E 1493889358078
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 824 Posible violaciOn de la SC: P2 E 1493889358808
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 848 Posible violaciOn de la SC: P2 E 1493889361391
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 852 Posible violaciOn de la SC: P1 E 1493889361798
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 864 Posible violaciOn de la SC: P1 E 1493889362994
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 872 Posible violaciOn de la SC: P2 E 1493889363877
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 876 Posible violaciOn de la SC: P1 E 1493889364174
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 884 Posible violaciOn de la SC: P2 E 1493889365047
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 896 Posible violaciOn de la SC: P2 E 1493889366239
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 900 Posible violaciOn de la SC: P1 E 1493889366785
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 912 Posible violaciOn de la SC: P1 E 1493889367965
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 918 Posible violaciOn de la SC: P2 E 1493889368641
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 924 Posible violaciOn de la SC: P1 E 1493889369320
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 936 Posible violaciOn de la SC: P1 E 1493889370590
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 942 Posible violaciOn de la SC: P2 E 1493889371279
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 948 Posible violaciOn de la SC: P1 E 1493889371986
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 954 Posible violaciOn de la SC: P2 E 1493889372703
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 960 Posible violaciOn de la SC: P1 E 1493889373377
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 966 Posible violaciOn de la SC: P2 E 1493889373945
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 972 Posible violaciOn de la SC: P1 E 1493889374568
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 984 Posible violaciOn de la SC: P1 E 1493889375738
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 990 Posible violaciOn de la SC: P2 E 1493889376165
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 998 Posible violaciOn de la SC: P1 E 1493889376913
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1002 Posible violaciOn de la SC: P2 E 1493889377357
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1008 Posible violaciOn de la SC: P3 E 1493889378078
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1014 Posible violaciOn de la SC: P2 E 1493889378527
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1020 Posible violaciOn de la SC: P3 E 1493889379133
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1036 Posible violaciOn de la SC: P1 E 1493889380510
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1044 Posible violaciOn de la SC: P3 E 1493889381233
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1056 Posible violaciOn de la SC: P3 E 1493889382287
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1060 Posible violaciOn de la SC: P1 E 1493889382642
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1072 Posible violaciOn de la SC: P1 E 1493889383703
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1080 Posible violaciOn de la SC: P3 E 1493889384451
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1084 Posible violaciOn de la SC: P1 E 1493889384814
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1096 Posible violaciOn de la SC: P1 E 1493889385953
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1108 Posible violaciOn de la SC: P1 E 1493889387011
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1120 Posible violaciOn de la SC: P1 E 1493889387986
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1130 Posible violaciOn de la SC: P1 E 1493889388807
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1134 Posible violaciOn de la SC: P2 E 1493889389278
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1140 Posible violaciOn de la SC: P3 E 1493889389843
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1146 Posible violaciOn de la SC: P2 E 1493889390488
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1154 Posible violaciOn de la SC: P1 E 1493889391425
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1158 Posible violaciOn de la SC: P2 E 1493889391704
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1164 Posible violaciOn de la SC: P3 E 1493889392083
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1170 Posible violaciOn de la SC: P2 E 1493889392878
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1174 Posible violaciOn de la SC: P5 E 1493889393238
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1178 Posible violaciOn de la SC: P1 E 1493889393585
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1182 Posible violaciOn de la SC: P2 E 1493889393923
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1188 Posible violaciOn de la SC: P3 E 1493889394377
+  ViolaciOn disuelta por desfases de tiempo
+LInea: 1194 Posible violaciOn de la SC: P2 E 1493889394859
+  ViolaciOn disuelta por desfases de tiempo
+ComprobaciOn terminada
+	Violaciones detectadas: 0
